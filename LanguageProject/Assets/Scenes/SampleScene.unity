@@ -243,8 +243,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.6, y: -29}
-  m_SizeDelta: {x: 420, y: 100}
+  m_AnchoredPosition: {x: -7.213, y: -23.3677}
+  m_SizeDelta: {x: 388.3732, y: 88.7354}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &661842354
 MonoBehaviour:
@@ -266,7 +266,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hello j test AA
+  m_text: 'Hello j test AAaaaa Another jj
+
+    liAe of jyjy'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 18bce1d07c33e864b8ad55badc6d30e2, type: 2}
   m_sharedMaterial: {fileID: -2360525922922764695, guid: 18bce1d07c33e864b8ad55badc6d30e2, type: 2}
@@ -329,7 +331,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0.6966553, w: 0}
+  m_margin: {x: 0, y: 0, z: 5.820766e-11, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -524,4 +526,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1707836302
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1707836304}
+  - component: {fileID: 1707836303}
+  m_Layer: 0
+  m_Name: Dictionary
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1707836303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707836302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8effcb5b6295dd14995ed96f7274553d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alienLetters:
+  - {fileID: 21300000, guid: bf1f505e02341244f8b0ae6d8c36fa2c, type: 3}
+--- !u!4 &1707836304
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707836302}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 384.91782, y: 175.8674, z: 0.9256141}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
