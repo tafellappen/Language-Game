@@ -14,9 +14,10 @@ public class Translator : MonoBehaviour
     private float lineHeight;
     private int charsPerLine; // remember that words jump a line down before reaching the end
 
+    private List<GameObject> covers; // track covers so they can be deleted
+
     void Start()
     {
-        AlienDictionary dictionary = GameObject.Find("Dictionary").GetComponent<AlienDictionary>();
         RectTransform box = GetComponent<RectTransform>();
         Text textBox = GetComponent<Text>();
 
@@ -33,6 +34,22 @@ public class Translator : MonoBehaviour
         LetterCover.GetComponent<RectTransform>().sizeDelta = charDims; // change the prefab because it is the same for all covers
         coverStart = new Vector3(box.localPosition.x - box.rect.width / 2 + charDims.x / 2, box.localPosition.y + box.rect.max.y - 59f * textBox.fontSize / 94, 0); // y scalar found through guess and check at font size 94
 
+        // Translate at the start
+        Translate();
+    }
+
+    public void Translate()
+    {
+        // clear previous letter covers
+        if(covers != null) { 
+            foreach(GameObject cover in covers) {
+                Destroy(cover);
+            }
+        }
+        covers = new List<GameObject>();
+
+        AlienDictionary dictionary = GameObject.Find("Dictionary").GetComponent<AlienDictionary>();
+        Text textBox = GetComponent<Text>();
         string startText = textBox.text;
 
         // find all of the words from the text and add spaces when necessary
@@ -91,7 +108,7 @@ public class Translator : MonoBehaviour
                 row++;
                 col = 0;
             }
-            else if(newText[i] == words[nextWord][0] || newText[i] == '_') { 
+            else if(nextWord < words.Count && (newText[i] == words[nextWord][0] || newText[i] == '_')) { 
                 AlienWord alien = dictionary.GetWord(words[nextWord]);
                 int wordLength = alien.Letters.Length;
                 
@@ -130,6 +147,7 @@ public class Translator : MonoBehaviour
         cover.transform.SetParent(transform.parent);
         cover.transform.localScale = new Vector3(1, 1, 1);
         cover.transform.localPosition = coverStart + new Vector3(charDims.x * col, -lineHeight * row, 0);
+        covers.Add(cover);
 
         return cover;
     }
@@ -144,7 +162,7 @@ public class Translator : MonoBehaviour
         's', 't', 'u',
         'v', 'w', 'x',
         'y', 'z',
-
+        '\'', // apostraphes are used in contractions and possessives (you're, Jerry's)
         'A', 'B', 'C',
         'D', 'E', 'F',
         'G', 'H', 'I',

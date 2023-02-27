@@ -6,6 +6,7 @@ using Doublsb.Dialog;
 public class DDSysTesting : MonoBehaviour
 {
     public DialogManager DialogManager;
+    [SerializeField] private Translator translatorScript;
 
     // Start is called before the first frame update
     void Awake()
@@ -34,7 +35,7 @@ public class DDSysTesting : MonoBehaviour
                 DialogManager.Show(dialogTexts);
                 break;
             case "teleport":
-                dialogTexts.Add(new DialogData("hoho, youre approaching me?"));
+                dialogTexts.Add(new DialogData("hoho, you're approaching me?"));
                 DialogManager.Show(dialogTexts);
                 break;
             case "god":
@@ -44,5 +45,7 @@ public class DDSysTesting : MonoBehaviour
             default:
                 break;
         }
+
+        translatorScript.Translate();
     }
 }
