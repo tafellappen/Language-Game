@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.TextCore;
 
 // when attached to a text box, this will transform some or all of the english into alien text
-public class Translator : MonoBehaviour
+public class TextMeshTranslator : MonoBehaviour
 {
     [SerializeField] private GameObject LetterCover;
 
@@ -18,22 +18,22 @@ public class Translator : MonoBehaviour
     {
         AlienDictionary dictionary = GameObject.Find("Dictionary").GetComponent<AlienDictionary>();
         RectTransform box = GetComponent<RectTransform>();
-        Text textBox = GetComponent<Text>();
+        TMPro.TextMeshProUGUI textMesh = GetComponent<TMPro.TextMeshProUGUI>();
 
         // determine text dimensions and position
         CharacterInfo jInfo;
-        if(!textBox.font.GetCharacterInfo('j', out jInfo, (int)textBox.fontSize)) { // only add to the font once
-            textBox.font.RequestCharactersInTexture("j", (int)textBox.fontSize); // 'j' is the tallest character, all have the same advance because font is monospaced
-            textBox.font.GetCharacterInfo('j', out jInfo, (int)textBox.fontSize);
+        if(!textMesh.font.sourceFontFile.GetCharacterInfo('j', out jInfo, (int)textMesh.fontSize)) { // only add to the font once
+            textMesh.font.sourceFontFile.RequestCharactersInTexture("j", (int)textMesh.fontSize); // 'j' is the tallest character, all have the same advance
+            textMesh.font.sourceFontFile.GetCharacterInfo('j', out jInfo, (int)textMesh.fontSize);
         }
 
         charDims = new Vector2(jInfo.advance, jInfo.glyphHeight);
         charsPerLine = (int)(box.rect.width / charDims.x);
-        lineHeight = textBox.font.lineHeight / 15f * textBox.fontSize; // font file value is for size 15 font
+        lineHeight = textMesh.font.sourceFontFile.lineHeight / 15f * textMesh.fontSize; // font file value is for size 15 font
         LetterCover.GetComponent<RectTransform>().sizeDelta = charDims; // change the prefab because it is the same for all covers
-        coverStart = new Vector3(box.localPosition.x - box.rect.width / 2 + charDims.x / 2, box.localPosition.y + box.rect.max.y - 59f * textBox.fontSize / 94, 0); // y scalar found through guess and check at font size 94
+        coverStart = new Vector3(box.localPosition.x - box.rect.width / 2 + charDims.x / 2, box.localPosition.y + charDims.y * 0.25f, 0); // baseline alignment has bottom on midline
 
-        string startText = textBox.text;
+        string startText = textMesh.text;
 
         // find all of the words from the text and add spaces when necessary
         string newText = "";
@@ -80,7 +80,7 @@ public class Translator : MonoBehaviour
             }
         }
 
-        textBox.text = newText;
+        textMesh.text = newText;
 
         // place alien letters
         int row = 0;

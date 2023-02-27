@@ -10,7 +10,7 @@ public class DDSysTesting : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        DialogData data = new DialogData("omae wa mou shindeiru", "AlienCharacter");
+        DialogData data = new DialogData("omae wa mou shindeiru jjj\nthis is A newline with jyjy", "AlienCharacter");
         data.SelectList.Add("nani", "NANI???");
         data.SelectList.Add("teleport", "*teleports behind u*");
         data.SelectList.Add("god", "power of god and anime");
