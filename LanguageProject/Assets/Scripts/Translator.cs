@@ -8,6 +8,7 @@ using UnityEngine.TextCore;
 public class Translator : MonoBehaviour
 {
     [SerializeField] private GameObject LetterCover;
+    private const float manualShift = 1.5f; // decrease text advance manually through guess and check
 
     private Vector3 coverStart;
     private Vector2 charDims;
@@ -29,9 +30,8 @@ public class Translator : MonoBehaviour
         }
 
         charDims = new Vector2(jInfo.advance, jInfo.glyphHeight);
-        charsPerLine = (int)(box.rect.width / charDims.x);
-        lineHeight = textBox.font.lineHeight / 15f * textBox.fontSize; // font file value is for size 15 font
-        LetterCover.GetComponent<RectTransform>().sizeDelta = charDims; // change the prefab because it is the same for all covers
+        charsPerLine = (int)(box.rect.width / (charDims.x - manualShift));
+        lineHeight = textBox.font.lineHeight / 20f * textBox.fontSize; // font file value is for size 20 font
         coverStart = new Vector3(box.localPosition.x - box.rect.width / 2 + charDims.x / 2, box.localPosition.y + box.rect.max.y - 59f * textBox.fontSize / 94, 0); // y scalar found through guess and check at font size 94
 
         // Translate at the start
@@ -99,6 +99,13 @@ public class Translator : MonoBehaviour
 
         textBox.text = newText;
 
+        // TEMP: learn some of the words
+        foreach(string word in words) {
+            if(Random.Range(0, 10) < 5) { // 50% chance to learn it
+                dictionary.GetWord(word).Known = true;
+            }
+        }
+
         // place alien letters
         int row = 0;
         int col = 0;
@@ -146,7 +153,8 @@ public class Translator : MonoBehaviour
         GameObject cover = Instantiate(LetterCover);
         cover.transform.SetParent(transform.parent);
         cover.transform.localScale = new Vector3(1, 1, 1);
-        cover.transform.localPosition = coverStart + new Vector3(charDims.x * col, -lineHeight * row, 0);
+        cover.GetComponent<RectTransform>().sizeDelta = charDims;
+        cover.transform.localPosition = coverStart + new Vector3((charDims.x - manualShift) * col, -lineHeight * row, 0);
         covers.Add(cover);
 
         return cover;

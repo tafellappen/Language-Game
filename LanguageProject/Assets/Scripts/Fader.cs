@@ -6,15 +6,9 @@ using UnityEngine.UI;
 // allows the object to fade out when triggered
 public class Fader : MonoBehaviour
 {
-    private float alpha;
-    private bool fading;
+    private float alpha = 1;
+    private bool fading = false;
     private const float FADE_SPEED = 0.5f; // opacity per second
-
-    void Start()
-    {
-        alpha = 1;
-        fading = false;
-    }
 
     void Update()
     {

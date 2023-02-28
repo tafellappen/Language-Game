@@ -17,8 +17,8 @@ public class AlienWord
         Known = false;
 
         // generate alien version
-        leftSpace = Random.Range(0, 10) < 4;
-        rightSpace = Random.Range(0, 10) < 4;
+        leftSpace = Random.Range(0, 3) == 0;
+        rightSpace = Random.Range(0, 3) == 0;
 
         letters = new Sprite[englishLength + (leftSpace ? 1 : 0) + (rightSpace ? 1 : 0)];
         for(int i = 0; i < letters.Length; i++) {
