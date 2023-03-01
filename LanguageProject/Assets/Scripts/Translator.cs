@@ -8,13 +8,16 @@ using UnityEngine.TextCore;
 public class Translator : MonoBehaviour
 {
     [SerializeField] private GameObject LetterCover;
-    private const float manualShift = 1.5f; // decrease text advance manually through guess and check
+    private const float manualShift = 0.05f; // decrease text advance manually through guess and check
+    private const float verticalShift = 1.5f;
+    private const int numLearnable = 3;
 
     private Vector3 coverStart;
     private Vector2 charDims;
     private float lineHeight;
     private int charsPerLine; // remember that words jump a line down before reaching the end
 
+    private int learnableLeft;
     private List<GameObject> covers; // track covers so they can be deleted
 
     void Start()
@@ -30,12 +33,18 @@ public class Translator : MonoBehaviour
         }
 
         charDims = new Vector2(jInfo.advance, jInfo.glyphHeight);
-        charsPerLine = (int)(box.rect.width / (charDims.x - manualShift));
-        lineHeight = textBox.font.lineHeight / 20f * textBox.fontSize; // font file value is for size 20 font
-        coverStart = new Vector3(box.localPosition.x - box.rect.width / 2 + charDims.x / 2, box.localPosition.y + box.rect.max.y - 59f * textBox.fontSize / 94, 0); // y scalar found through guess and check at font size 94
+        charsPerLine = 46;// hard coded for consistency (int)(box.rect.width / (charDims.x - manualShift));
+        lineHeight = textBox.font.lineHeight / 20f * textBox.fontSize * 1.05f; // font file value is for size 20 font
+        coverStart = new Vector3(box.localPosition.x - box.rect.width / 2 + charDims.x / 2, box.localPosition.y + verticalShift + box.rect.max.y - 59f * textBox.fontSize / 94, 0); // y scalar found through guess and check at font size 94
 
         // Translate at the start
         Translate();
+    }
+
+    void Update() {
+        if(learnableLeft > 0) {
+
+        }
     }
 
     public void Translate()
@@ -99,13 +108,6 @@ public class Translator : MonoBehaviour
 
         textBox.text = newText;
 
-        // TEMP: learn some of the words
-        foreach(string word in words) {
-            if(Random.Range(0, 10) < 5) { // 50% chance to learn it
-                dictionary.GetWord(word).Known = true;
-            }
-        }
-
         // place alien letters
         int row = 0;
         int col = 0;
@@ -141,6 +143,12 @@ public class Translator : MonoBehaviour
             }
             else { 
                 col++;
+
+                if(col >= charsPerLine - 1 && newText[i] == ' ' && i > 0 && newText[i-1] != '\n') {
+                    // spaces that occur right before the text moves to a new line do not exist
+                    col--;
+                }
+
                 if(col > charsPerLine - 1) {
                     row++;
                     col = 0;
@@ -153,11 +161,16 @@ public class Translator : MonoBehaviour
         GameObject cover = Instantiate(LetterCover);
         cover.transform.SetParent(transform.parent);
         cover.transform.localScale = new Vector3(1, 1, 1);
-        cover.GetComponent<RectTransform>().sizeDelta = charDims;
+        cover.GetComponent<RectTransform>().sizeDelta = charDims * 1.05f; // expand letters a little to be safe
         cover.transform.localPosition = coverStart + new Vector3((charDims.x - manualShift) * col, -lineHeight * row, 0);
         covers.Add(cover);
 
         return cover;
+    }
+
+    // called whenever a piece of text should allow the player to learn new words
+    public void AllowLearning() {
+        learnableLeft = numLearnable;
     }
 
     private static List<char> alphabet = new List<char> {
