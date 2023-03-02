@@ -8,9 +8,10 @@ using UnityEngine.TextCore;
 public class Translator : MonoBehaviour
 {
     [SerializeField] private GameObject LetterCover;
+    [SerializeField] private SpeechBubbleScript speechBubble;
     private const float manualShift = 0.05f; // decrease text advance manually through guess and check
     private const float verticalShift = 1.5f;
-    private const int NUM_LEARNABLE = 3;
+    private const int NUM_LEARNABLE = 2;
     AlienDictionary dictionary;
 
     private Vector3 coverStart;
@@ -75,7 +76,7 @@ public class Translator : MonoBehaviour
                     }
                 }
 
-                // check for mouse click
+                // check for mouse click then learn that word
                 if(Input.GetMouseButtonDown(0)) {
                     dictionary.GetWord(hoveredWord).Known = true;
                     learnableLeft--;
@@ -86,6 +87,8 @@ public class Translator : MonoBehaviour
                             cover.GetComponent<LetterScript>().FadeOut(false);
                         }
                     }
+
+                    speechBubble.TeachWord(hoveredWord);
                 }
             }
         }
@@ -226,10 +229,10 @@ public class Translator : MonoBehaviour
         "a", "an", "the", "this", "that", "those", "these",
         "I", "me", "my", "mine", "you", "your", "yours", "we", "us", "our", "he", "him", "his", "she", "her", "hers", "they", "them", "theirs",
         "am", "is", "are", "was", "were", "be", "being", "been",
-        "and", "but", "so", "because", "however",
-        "to", "for", "from", "with", "not",
-        "hi", "hello", "thank", "thanks", "bye", "goodbye",
-        "who", "where", "what", "when", "why", "how",
+        "and", "but", "so",
+        //"to", "for", "from", "with", "not",
+        //"hi", "hello", "thank", "thanks", "bye", "goodbye",
+        //"who", "where", "what", "when", "why", "how",
     };
 
     private static List<char> alphabet = new List<char> {
