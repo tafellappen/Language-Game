@@ -59,7 +59,7 @@ public class Translator : MonoBehaviour
                 }
 
                 cover.GetComponent<Image>().color = Color.white; // default everything to white
-                Vector2 dims = new Vector2(20, 30); // found through guess and check
+                Vector2 dims = new Vector2(60, 90); // in editor: new Vector2(20, 30); // found through guess and check
                 Rect box = new Rect((Vector2)cover.GetComponent<RectTransform>().position - dims / 2, dims);
                 if(box.Contains(mousPos)) {
                     hoveredWord = script.Word;
@@ -224,11 +224,11 @@ public class Translator : MonoBehaviour
 
     private List<string> starterWords = new List<string> {
         "a", "an", "the", "this", "that", "those", "these",
-        "I", "me", "mine", "you", "yours", "we", "us", "our", "he", "him", "his", "she", "her", "hers", "they", "them", "theirs",
+        "I", "me", "my", "mine", "you", "your", "yours", "we", "us", "our", "he", "him", "his", "she", "her", "hers", "they", "them", "theirs",
         "am", "is", "are", "was", "were", "be", "being", "been",
         "and", "but", "so", "because", "however",
-        "to", "for", "with", "not",
-        "hi", "hello", "thank", "thanks", "bye",
+        "to", "for", "from", "with", "not",
+        "hi", "hello", "thank", "thanks", "bye", "goodbye",
         "who", "where", "what", "when", "why", "how",
     };
 
