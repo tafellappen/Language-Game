@@ -11,8 +11,7 @@ public class DDSysTesting : MonoBehaviour
 
     void Awake()
     {
-        //DialogData data = new DialogData("Hi! You must be the new student from Earth! My name is Cindy! What are you getting for lunch?", "AlienCharacter");
-        DialogData data = new DialogData("Hi! You must bej the new student from Earth! My name is Cindy! What are you getting forj lunch?", "AlienCharacter");
+        DialogData data = new DialogData("Hi! You must be the new student from Earth! My name is Cindy! What are you getting for lunch?", "AlienCharacter");
         data.SelectList.Add("idk", "I don’t know. Do you have any recommendations?");
         data.SelectList.Add("burger", "Burger");
         data.SelectList.Add("fu", "Fu");

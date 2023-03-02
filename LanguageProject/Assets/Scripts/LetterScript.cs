@@ -4,12 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // allows the object to fade out when triggered
-public class Fader : MonoBehaviour
+public class LetterScript : MonoBehaviour
 {
     private float alpha = 1;
     private bool fading = false;
     private float fadeWait = 1.5f;
     private const float FADE_SPEED = 0.5f; // opacity per second
+
+    public bool Fading { get { return fading; } }
+    public string Word { get; set; }
 
     void Update()
     {
@@ -27,7 +30,10 @@ public class Fader : MonoBehaviour
         }
     }
 
-    public void FadeOut() {
+    public void FadeOut(bool pause = true) {
         fading = true;
+        if(!pause) {
+            fadeWait = 0;
+        }
     }
 }

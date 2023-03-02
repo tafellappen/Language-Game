@@ -10,7 +10,8 @@ public class Translator : MonoBehaviour
     [SerializeField] private GameObject LetterCover;
     private const float manualShift = 0.05f; // decrease text advance manually through guess and check
     private const float verticalShift = 1.5f;
-    private const int numLearnable = 3;
+    private const int NUM_LEARNABLE = 3;
+    AlienDictionary dictionary;
 
     private Vector3 coverStart;
     private Vector2 charDims;
@@ -24,6 +25,7 @@ public class Translator : MonoBehaviour
     {
         RectTransform box = GetComponent<RectTransform>();
         Text textBox = GetComponent<Text>();
+        dictionary = GameObject.Find("Dictionary").GetComponent<AlienDictionary>();
 
         // determine text dimensions and position
         CharacterInfo jInfo;
@@ -36,19 +38,66 @@ public class Translator : MonoBehaviour
         charsPerLine = 46;// hard coded for consistency (int)(box.rect.width / (charDims.x - manualShift));
         lineHeight = textBox.font.lineHeight / 20f * textBox.fontSize * 1.05f; // font file value is for size 20 font
         coverStart = new Vector3(box.localPosition.x - box.rect.width / 2 + charDims.x / 2, box.localPosition.y + verticalShift + box.rect.max.y - 59f * textBox.fontSize / 94, 0); // y scalar found through guess and check at font size 94
+    
+        foreach(string word in starterWords) {
+            dictionary.RegisterWord(word);
+            dictionary.GetWord(word).Known = true;
+        }
 
-        // Translate at the start
-        Translate();
+        Translate(true);    
     }
 
     void Update() {
         if(learnableLeft > 0) {
+            // check for hover over unknown word
+            Vector2 mousPos = Input.mousePosition;
+            string hoveredWord = null;
+            foreach(GameObject cover in covers) {
+                LetterScript script = cover.GetComponent<LetterScript>();
+                if(script.Fading) { // faded out letter are from known words
+                    continue;
+                }
 
+                cover.GetComponent<Image>().color = Color.white; // default everything to white
+                Vector2 dims = new Vector2(20, 30); // found through guess and check
+                Rect box = new Rect((Vector2)cover.GetComponent<RectTransform>().position - dims / 2, dims);
+                if(box.Contains(mousPos)) {
+                    hoveredWord = script.Word;
+                }
+            }
+
+            // highlight hovered word
+            if(hoveredWord != null) {
+                foreach(GameObject cover in covers) {
+                    LetterScript script = cover.GetComponent<LetterScript>();
+                    if(script.Word == hoveredWord) {
+                        cover.GetComponent<Image>().color = Color.magenta;
+                    }
+                }
+
+                // check for mouse click
+                if(Input.GetMouseButtonDown(0)) {
+                    dictionary.GetWord(hoveredWord).Known = true;
+                    learnableLeft--;
+
+                    foreach(GameObject cover in covers) {
+                        LetterScript script = cover.GetComponent<LetterScript>();
+                        if(script.Word == hoveredWord) {
+                            cover.GetComponent<LetterScript>().FadeOut(false);
+                        }
+                    }
+                }
+            }
         }
     }
 
-    public void Translate()
+    public void Translate(bool allowLearning = true)
     {
+        // eliminate remaining learnable words
+        if(learnableLeft > 0) {
+            learnableLeft = 0;
+        }
+
         // clear previous letter covers
         if(covers != null) { 
             foreach(GameObject cover in covers) {
@@ -57,7 +106,6 @@ public class Translator : MonoBehaviour
         }
         covers = new List<GameObject>();
 
-        AlienDictionary dictionary = GameObject.Find("Dictionary").GetComponent<AlienDictionary>();
         Text textBox = GetComponent<Text>();
         string startText = textBox.text;
 
@@ -130,9 +178,10 @@ public class Translator : MonoBehaviour
                 // place covers for this word
                 for(int let = 0; let < wordLength; let++) {
                     GameObject cover = PlaceCover(row, col);
+                    cover.GetComponent<LetterScript>().Word = words[nextWord];
                     cover.GetComponent<Image>().sprite = alien.Letters[let];
                     if(alien.Known) {
-                        cover.GetComponent<Fader>().FadeOut();
+                        cover.GetComponent<LetterScript>().FadeOut();
                     }
 
                     col++;
@@ -155,6 +204,11 @@ public class Translator : MonoBehaviour
                 }
             }
         }
+
+        // allow leaening new words
+        if(allowLearning) {
+            learnableLeft = NUM_LEARNABLE;
+        }
     }
 
     private GameObject PlaceCover(int row, int col) {
@@ -168,10 +222,14 @@ public class Translator : MonoBehaviour
         return cover;
     }
 
-    // called whenever a piece of text should allow the player to learn new words
-    public void AllowLearning() {
-        learnableLeft = numLearnable;
-    }
+    private List<string> starterWords = new List<string> {
+        "a", "an", "the", "this", "that", "those", "these",
+        "I", "me", "mine", "you", "yours", "we", "us", "our", "he", "him", "his", "she", "her", "hers", "they", "them", "theirs",
+        "am", "is", "are", "was", "were", "be", "being", "been",
+        "and", "but", "so", "because", "however",
+        "to", "for", "with", "not",
+        "hi", "hello", "thank", "thanks", "bye"
+    };
 
     private static List<char> alphabet = new List<char> {
         'a', 'b', 'c',

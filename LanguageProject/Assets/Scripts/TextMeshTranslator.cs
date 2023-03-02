@@ -106,7 +106,7 @@ public class TextMeshTranslator : MonoBehaviour
                     GameObject cover = PlaceCover(row, col);
                     cover.GetComponent<Image>().sprite = alien.Letters[let];
                     if(alien.Known) {
-                        cover.GetComponent<Fader>().FadeOut();
+                        cover.GetComponent<LetterScript>().FadeOut();
                     }
 
                     col++;
