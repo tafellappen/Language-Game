@@ -10,15 +10,17 @@ public class AlienDictionary : MonoBehaviour
 
     // gets the alien version of the english word. Does not verify if word is in the dictionary
     public AlienWord GetWord(string english) {
-        return dictionary[english];
+        string lowered = english.ToLower();
+        return dictionary[lowered];
     }
 
     // does not register anything if the word is already registered
     public void RegisterWord(string english) {
-        if(dictionary.ContainsKey(english)) {
+        string lowered = english.ToLower();
+        if(dictionary.ContainsKey(lowered)) {
             return;
         }
 
-        dictionary[english] = new AlienWord(english.Length, alienLetters);
+        dictionary[lowered] = new AlienWord(lowered.Length, alienLetters);
     }
 }

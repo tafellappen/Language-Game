@@ -8,32 +8,106 @@ using UnityEngine.TextCore;
 public class Translator : MonoBehaviour
 {
     [SerializeField] private GameObject LetterCover;
+    private const float manualShift = 0.05f; // decrease text advance manually through guess and check
+    private const float verticalShift = 1.5f;
+    private const int NUM_LEARNABLE = 3;
+    AlienDictionary dictionary;
 
     private Vector3 coverStart;
     private Vector2 charDims;
     private float lineHeight;
     private int charsPerLine; // remember that words jump a line down before reaching the end
 
+    private int learnableLeft;
+    private List<GameObject> covers; // track covers so they can be deleted
+
     void Start()
     {
-        AlienDictionary dictionary = GameObject.Find("Dictionary").GetComponent<AlienDictionary>();
         RectTransform box = GetComponent<RectTransform>();
-        TMPro.TextMeshProUGUI textMesh = GetComponent<TMPro.TextMeshProUGUI>();
+        Text textBox = GetComponent<Text>();
+        dictionary = GameObject.Find("Dictionary").GetComponent<AlienDictionary>();
 
         // determine text dimensions and position
         CharacterInfo jInfo;
-        if(!textMesh.font.sourceFontFile.GetCharacterInfo('j', out jInfo, (int)textMesh.fontSize)) { // only add to the font once
-            textMesh.font.sourceFontFile.RequestCharactersInTexture("j", (int)textMesh.fontSize); // 'j' is the tallest character, all have the same advance
-            textMesh.font.sourceFontFile.GetCharacterInfo('j', out jInfo, (int)textMesh.fontSize);
+        if(!textBox.font.GetCharacterInfo('j', out jInfo, (int)textBox.fontSize)) { // only add to the font once
+            textBox.font.RequestCharactersInTexture("j", (int)textBox.fontSize); // 'j' is the tallest character, all have the same advance because font is monospaced
+            textBox.font.GetCharacterInfo('j', out jInfo, (int)textBox.fontSize);
         }
 
         charDims = new Vector2(jInfo.advance, jInfo.glyphHeight);
-        charsPerLine = (int)(box.rect.width / charDims.x);
-        lineHeight = textMesh.font.sourceFontFile.lineHeight / 15f * textMesh.fontSize; // font file value is for size 15 font
-        LetterCover.GetComponent<RectTransform>().sizeDelta = charDims; // change the prefab because it is the same for all covers
-        coverStart = new Vector3(box.localPosition.x - box.rect.width / 2 + charDims.x / 2, box.localPosition.y + charDims.y * 0.25f, 0); // baseline alignment has bottom on midline
+        charsPerLine = 46;// hard coded for consistency (int)(box.rect.width / (charDims.x - manualShift));
+        lineHeight = textBox.font.lineHeight / 20f * textBox.fontSize * 1.05f; // font file value is for size 20 font
+        coverStart = new Vector3(box.localPosition.x - box.rect.width / 2 + charDims.x / 2, box.localPosition.y + verticalShift + box.rect.max.y - 59f * textBox.fontSize / 94, 0); // y scalar found through guess and check at font size 94
+    
+        foreach(string word in starterWords) {
+            dictionary.RegisterWord(word);
+            dictionary.GetWord(word).Known = true;
+        }
 
-        string startText = textMesh.text;
+        Translate(true);    
+    }
+
+    void Update() {
+        if(learnableLeft > 0) {
+            // check for hover over unknown word
+            Vector2 mousPos = Input.mousePosition;
+            string hoveredWord = null;
+            foreach(GameObject cover in covers) {
+                LetterScript script = cover.GetComponent<LetterScript>();
+                if(script.Fading) { // faded out letter are from known words
+                    continue;
+                }
+
+                cover.GetComponent<Image>().color = Color.white; // default everything to white
+                Vector2 dims = new Vector2(60, 90); // in editor: new Vector2(20, 30); // found through guess and check
+                Rect box = new Rect((Vector2)cover.GetComponent<RectTransform>().position - dims / 2, dims);
+                if(box.Contains(mousPos)) {
+                    hoveredWord = script.Word;
+                }
+            }
+
+            // highlight hovered word
+            if(hoveredWord != null) {
+                foreach(GameObject cover in covers) {
+                    LetterScript script = cover.GetComponent<LetterScript>();
+                    if(script.Word == hoveredWord) {
+                        cover.GetComponent<Image>().color = Color.magenta;
+                    }
+                }
+
+                // check for mouse click
+                if(Input.GetMouseButtonDown(0)) {
+                    dictionary.GetWord(hoveredWord).Known = true;
+                    learnableLeft--;
+
+                    foreach(GameObject cover in covers) {
+                        LetterScript script = cover.GetComponent<LetterScript>();
+                        if(script.Word == hoveredWord) {
+                            cover.GetComponent<LetterScript>().FadeOut(false);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void Translate(bool allowLearning = true)
+    {
+        // eliminate remaining learnable words
+        if(learnableLeft > 0) {
+            learnableLeft = 0;
+        }
+
+        // clear previous letter covers
+        if(covers != null) { 
+            foreach(GameObject cover in covers) {
+                Destroy(cover);
+            }
+        }
+        covers = new List<GameObject>();
+
+        Text textBox = GetComponent<Text>();
+        string startText = textBox.text;
 
         // find all of the words from the text and add spaces when necessary
         string newText = "";
@@ -80,7 +154,7 @@ public class Translator : MonoBehaviour
             }
         }
 
-        textMesh.text = newText;
+        textBox.text = newText;
 
         // place alien letters
         int row = 0;
@@ -91,7 +165,7 @@ public class Translator : MonoBehaviour
                 row++;
                 col = 0;
             }
-            else if(newText[i] == words[nextWord][0] || newText[i] == '_') { 
+            else if(nextWord < words.Count && (newText[i] == words[nextWord][0] || newText[i] == '_')) { 
                 AlienWord alien = dictionary.GetWord(words[nextWord]);
                 int wordLength = alien.Letters.Length;
                 
@@ -104,9 +178,10 @@ public class Translator : MonoBehaviour
                 // place covers for this word
                 for(int let = 0; let < wordLength; let++) {
                     GameObject cover = PlaceCover(row, col);
+                    cover.GetComponent<LetterScript>().Word = words[nextWord];
                     cover.GetComponent<Image>().sprite = alien.Letters[let];
                     if(alien.Known) {
-                        cover.GetComponent<Fader>().FadeOut();
+                        cover.GetComponent<LetterScript>().FadeOut();
                     }
 
                     col++;
@@ -117,11 +192,22 @@ public class Translator : MonoBehaviour
             }
             else { 
                 col++;
+
+                if(col >= charsPerLine - 1 && newText[i] == ' ' && i > 0 && newText[i-1] != '\n') {
+                    // spaces that occur right before the text moves to a new line do not exist
+                    col--;
+                }
+
                 if(col > charsPerLine - 1) {
                     row++;
                     col = 0;
                 }
             }
+        }
+
+        // allow leaening new words
+        if(allowLearning) {
+            learnableLeft = NUM_LEARNABLE;
         }
     }
 
@@ -129,10 +215,22 @@ public class Translator : MonoBehaviour
         GameObject cover = Instantiate(LetterCover);
         cover.transform.SetParent(transform.parent);
         cover.transform.localScale = new Vector3(1, 1, 1);
-        cover.transform.localPosition = coverStart + new Vector3(charDims.x * col, -lineHeight * row, 0);
+        cover.GetComponent<RectTransform>().sizeDelta = charDims * 1.05f; // expand letters a little to be safe
+        cover.transform.localPosition = coverStart + new Vector3((charDims.x - manualShift) * col, -lineHeight * row, 0);
+        covers.Add(cover);
 
         return cover;
     }
+
+    private List<string> starterWords = new List<string> {
+        "a", "an", "the", "this", "that", "those", "these",
+        "I", "me", "my", "mine", "you", "your", "yours", "we", "us", "our", "he", "him", "his", "she", "her", "hers", "they", "them", "theirs",
+        "am", "is", "are", "was", "were", "be", "being", "been",
+        "and", "but", "so", "because", "however",
+        "to", "for", "from", "with", "not",
+        "hi", "hello", "thank", "thanks", "bye", "goodbye",
+        "who", "where", "what", "when", "why", "how",
+    };
 
     private static List<char> alphabet = new List<char> {
         'a', 'b', 'c',
@@ -144,7 +242,7 @@ public class Translator : MonoBehaviour
         's', 't', 'u',
         'v', 'w', 'x',
         'y', 'z',
-
+        '\'', // apostraphes are used in contractions and possessives (you're, Jerry's)
         'A', 'B', 'C',
         'D', 'E', 'F',
         'G', 'H', 'I',
