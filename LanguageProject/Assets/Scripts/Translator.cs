@@ -228,7 +228,8 @@ public class Translator : MonoBehaviour
         "am", "is", "are", "was", "were", "be", "being", "been",
         "and", "but", "so", "because", "however",
         "to", "for", "with", "not",
-        "hi", "hello", "thank", "thanks", "bye"
+        "hi", "hello", "thank", "thanks", "bye",
+        "who", "where", "what", "when", "why", "how",
     };
 
     private static List<char> alphabet = new List<char> {
