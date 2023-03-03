@@ -9,6 +9,7 @@ public class Translator : MonoBehaviour
 {
     [SerializeField] private GameObject LetterCover;
     [SerializeField] private SpeechBubbleScript speechBubble;
+    [SerializeField] private GameObject learnableSign;
     private const float manualShift = 0.05f; // decrease text advance manually through guess and check
     private const float verticalShift = 1.5f;
     private const int NUM_LEARNABLE = 2;
@@ -36,7 +37,7 @@ public class Translator : MonoBehaviour
         }
 
         charDims = new Vector2(jInfo.advance, jInfo.glyphHeight);
-        charsPerLine = 46;// hard coded for consistency (int)(box.rect.width / (charDims.x - manualShift));
+        charsPerLine = 46; // hard coded for consistency, works in build but not editor (int)(box.rect.width / (charDims.x - manualShift));
         lineHeight = textBox.font.lineHeight / 20f * textBox.fontSize * 1.05f; // font file value is for size 20 font
         coverStart = new Vector3(box.localPosition.x - box.rect.width / 2 + charDims.x / 2, box.localPosition.y + verticalShift + box.rect.max.y - 59f * textBox.fontSize / 94, 0); // y scalar found through guess and check at font size 94
     
@@ -80,6 +81,7 @@ public class Translator : MonoBehaviour
                 if(Input.GetMouseButtonDown(0)) {
                     dictionary.GetWord(hoveredWord).Known = true;
                     learnableLeft--;
+                    learnableSign.transform.GetChild(0).gameObject.GetComponent<Text>().text = "" + learnableLeft;
 
                     foreach(GameObject cover in covers) {
                         LetterScript script = cover.GetComponent<LetterScript>();
@@ -99,6 +101,7 @@ public class Translator : MonoBehaviour
         // eliminate remaining learnable words
         if(learnableLeft > 0) {
             learnableLeft = 0;
+            learnableSign.SetActive(false);
         }
 
         // clear previous letter covers
@@ -172,8 +175,12 @@ public class Translator : MonoBehaviour
                 AlienWord alien = dictionary.GetWord(words[nextWord]);
                 int wordLength = alien.Letters.Length;
                 
-                // check if this word wraps to the next line
-                if(col + wordLength > charsPerLine) {
+                // check if this word wraps to the next line, factor in punctuation right after
+                int extraSpot = 0;
+                if(i + wordLength < newText.Length && newText[i + wordLength] != ' ') {
+                    extraSpot = 1;
+                }
+                if(col + wordLength + extraSpot > charsPerLine) {
                     row++;
                     col = 0;
                 }
@@ -208,9 +215,11 @@ public class Translator : MonoBehaviour
             }
         }
 
-        // allow leaening new words
+        // allow learning new words
         if(allowLearning) {
             learnableLeft = NUM_LEARNABLE;
+            learnableSign.SetActive(true);
+            learnableSign.transform.GetChild(0).gameObject.GetComponent<Text>().text = "" + learnableLeft;
         }
     }
 
