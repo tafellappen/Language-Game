@@ -23,6 +23,8 @@ public class Translator : MonoBehaviour
     private int learnableLeft;
     private List<GameObject> covers; // track covers so they can be deleted
 
+    public bool PleaseTranslate { get; set; } // temporary?
+
     void Start()
     {
         RectTransform box = GetComponent<RectTransform>();
@@ -46,10 +48,15 @@ public class Translator : MonoBehaviour
             dictionary.GetWord(word).Known = true;
         }
 
-        Translate(true);    
+        Translate(false);    
     }
 
     void Update() {
+        if(PleaseTranslate) {
+            Translate(true);
+            PleaseTranslate = false;
+        }
+
         if(learnableLeft > 0) {
             // check for hover over unknown word
             Vector2 mousPos = Input.mousePosition;
@@ -99,10 +106,8 @@ public class Translator : MonoBehaviour
     public void Translate(bool allowLearning = true)
     {
         // eliminate remaining learnable words
-        if(learnableLeft > 0) {
-            learnableLeft = 0;
-            learnableSign.SetActive(false);
-        }
+        learnableLeft = 0;
+        learnableSign.SetActive(false);
 
         // clear previous letter covers
         if(covers != null) { 
@@ -236,7 +241,7 @@ public class Translator : MonoBehaviour
 
     private List<string> starterWords = new List<string> {
         "a", "an", "the", "this", "that", "those", "these",
-        "I", "me", "my", "mine", "you", "your", "yours", "we", "us", "our", "he", "him", "his", "she", "her", "hers", "they", "them", "theirs",
+        "I", "me", "my", "mine", "I'm", "you", "your", "yours", "we", "us", "our", "he", "him", "his", "she", "her", "hers", "they", "them", "theirs",
         "am", "is", "are", "was", "were", "be", "being", "been",
         "and", "but", "so",
         //"to", "for", "from", "with", "not",
