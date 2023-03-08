@@ -52,6 +52,12 @@ public class Translator : MonoBehaviour
     }
 
     void Update() {
+        // allow pausing
+        if(Time.timeScale <= 0)
+        {
+            return;
+        }
+
         if(PleaseTranslate) {
             Translate(true);
             PleaseTranslate = false;
@@ -68,7 +74,7 @@ public class Translator : MonoBehaviour
                 }
 
                 cover.GetComponent<Image>().color = Color.white; // default everything to white
-                Vector2 dims = new Vector2(60, 90); // in editor: new Vector2(20, 30); // found through guess and check
+                Vector2 dims = new Vector2(charDims.x, 1.5f * charDims.x);
                 Rect box = new Rect((Vector2)cover.GetComponent<RectTransform>().position - dims / 2, dims);
                 if(box.Contains(mousPos)) {
                     hoveredWord = script.Word;
@@ -259,7 +265,7 @@ public class Translator : MonoBehaviour
         's', 't', 'u',
         'v', 'w', 'x',
         'y', 'z',
-        '\'', // apostraphes are used in contractions and possessives (you're, Jerry's)
+        '\'', '’', // apostraphes are used in contractions and possessives (you're, Jerry's)
         'A', 'B', 'C',
         'D', 'E', 'F',
         'G', 'H', 'I',
