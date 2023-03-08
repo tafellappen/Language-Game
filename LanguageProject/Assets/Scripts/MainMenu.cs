@@ -15,4 +15,10 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Quitting Game");
         Application.Quit();
     }
+
+    public void ToggleMute()
+    {
+        AudioSource audio = GameObject.Find("Music Player").GetComponent<AudioSource>();
+        audio.mute = !audio.mute;
+    }
 }
