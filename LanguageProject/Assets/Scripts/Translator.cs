@@ -63,6 +63,8 @@ public class Translator : MonoBehaviour
             PleaseTranslate = false;
         }
 
+        //Debug.Log(covers[0].GetComponent<Image>().rectTransform.sizeDelta.x);
+        //Debug.Log(Input.mousePosition + ", " + Camera.main.ScreenToWorldPoint(Input.mousePosition));
         if(learnableLeft > 0) {
             // check for hover over unknown word
             Vector2 mousPos = Input.mousePosition;
@@ -74,15 +76,16 @@ public class Translator : MonoBehaviour
                 }
 
                 cover.GetComponent<Image>().color = Color.white; // default everything to white
-                Vector2 dims = new Vector2(charDims.x, 1.5f * charDims.x);
+                Vector2 dims = new Vector2(Screen.width, 1.5f * Screen.width) / 49f;
                 Rect box = new Rect((Vector2)cover.GetComponent<RectTransform>().position - dims / 2, dims);
-                if(box.Contains(mousPos)) {
+                if (box.Contains(Input.mousePosition))
+                {
                     hoveredWord = script.Word;
                 }
             }
 
             // highlight hovered word
-            if(hoveredWord != null) {
+            if (hoveredWord != null) {
                 foreach(GameObject cover in covers) {
                     LetterScript script = cover.GetComponent<LetterScript>();
                     if(script.Word == hoveredWord) {
