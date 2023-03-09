@@ -80,27 +80,27 @@ public class DialoguePath : MonoBehaviour
         data.Callback = () => ShowResponse();
         dialogDataList.Add(data);
 
-        data = new DialogData("Hi! You must be the new student from Earth! My name is Cindy!");
-        data.SelectList.Add(, "Hello. Nice to meet you. ");
-        data.SelectList.Add(, "Are you in my class? I don’t remember seeing you in our classroom.");
-        data.SelectList.Add(, "So I am not the only new student huh?");
-        data.Callback = () => ShowResponse();
-        dialogDataList.Add(data);
+        //data = new DialogData("Hi! You must be the new student from Earth! My name is Cindy!");
+        //data.SelectList.Add(, "Hello. Nice to meet you. ");
+        //data.SelectList.Add(, "Are you in my class? I don’t remember seeing you in our classroom.");
+        //data.SelectList.Add(, "So I am not the only new student huh?");
+        //data.Callback = () => ShowResponse();
+        //dialogDataList.Add(data);
 
-        data = new DialogData("Anyways, what would you get for lunch?");
-        data.SelectList.Add(, "Burgers");
-        data.SelectList.Add(, "Porridge");
-        data.SelectList.Add(, "Fried Rice");
-        data.SelectList.Add(, "As you wish.");
-        data.Callback = () => ShowResponse();
-        dialogDataList.Add(data);
+        //data = new DialogData("Anyways, what would you get for lunch?");
+        //data.SelectList.Add(, "Burgers");
+        //data.SelectList.Add(, "Porridge");
+        //data.SelectList.Add(, "Fried Rice");
+        //data.SelectList.Add(, "As you wish.");
+        //data.Callback = () => ShowResponse();
+        //dialogDataList.Add(data);
 
-        data = new DialogData("");
-        data.SelectList.Add(, "");
-        data.SelectList.Add(, "");
-        data.SelectList.Add(, "");
-        data.Callback = () => ShowResponse();
-        dialogDataList.Add(data);
+        //data = new DialogData("");
+        //data.SelectList.Add(, "");
+        //data.SelectList.Add(, "");
+        //data.SelectList.Add(, "");
+        //data.Callback = () => ShowResponse();
+        //dialogDataList.Add(data);
 
 
 
