@@ -418,7 +418,7 @@ public class DialoguePath : MonoBehaviour
             foreach(KeyValuePair<string, DialogData> pair in responseMap)
             {
                 //pair.Value.Callback = () => { translator.PleaseTranslate = true; };
-                pair.Value.Callback = () => translator.Translate(false);
+                pair.Value.Callback = () => translator.TranslateNext(false);
             }
         }
 
@@ -460,7 +460,7 @@ public class DialoguePath : MonoBehaviour
         }
         //translator.PleaseTranslate = true;
 
-        translator.Translate(true);
+        translator.TranslateNext(true);
 
 
     }
