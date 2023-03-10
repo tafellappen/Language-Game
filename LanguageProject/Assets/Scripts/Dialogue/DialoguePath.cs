@@ -133,10 +133,10 @@ public class DialoguePath : MonoBehaviour
         responseMap    .Add(ResponseKeys.YesGravity.ToString(), new DialogData("I see…"));
 
         data.SelectList.Add(ResponseKeys.PredictGravity.ToString(), "Yes, it allows us to predict movement and organize our life accordingly."); //+
-        responseMap    .Add(ResponseKeys.PredictGravity.ToString(), new DialogData("Nice! I never thought of gravity in that way."));
+        responseMap    .Add(ResponseKeys.PredictGravity.ToString(), new DialogData(happyEmote + "Nice! I never thought of gravity in that way."));
 
         data.SelectList.Add(ResponseKeys.GravityExceptions.ToString(), "Well, yes, but there are exceptions"); //+
-        responseMap    .Add(ResponseKeys.GravityExceptions.ToString(), new DialogData("Cool. I have never been to a planet with that level of gravity"));
+        responseMap    .Add(ResponseKeys.GravityExceptions.ToString(), new DialogData(happyEmote + "Cool. I have never been to a planet with that level of gravity"));
 
         dialogDataList.Add(data);
 
@@ -147,7 +147,7 @@ public class DialoguePath : MonoBehaviour
         responseMap    .Add(ResponseKeys.LikeFood.ToString(), new DialogData("Cut it out, I know earth has much better food."));
 
         data.SelectList.Add(ResponseKeys.DislikeFood.ToString(), "It’s so boring. I miss that from earth."); //fp+
-        responseMap    .Add(ResponseKeys.DislikeFood.ToString(), new DialogData("Exactly. You have quite a diverse food culture."));
+        responseMap    .Add(ResponseKeys.DislikeFood.ToString(), new DialogData(happyEmote + "Exactly. You have quite a diverse food culture."));
 
         data.SelectList.Add(ResponseKeys.WeekAgo.ToString(), "I got here a week ago.");
         responseMap    .Add(ResponseKeys.WeekAgo.ToString(), new DialogData(confusedEmote + "OK?"));
@@ -163,7 +163,7 @@ public class DialoguePath : MonoBehaviour
         responseMap    .Add(ResponseKeys.CinNiceMeet.ToString(), new DialogData("Nice to meet you too."));
 
         data.SelectList.Add(ResponseKeys.CinInClass.ToString(), "Are you in my class? I don’t remember seeing you in our classroom.");
-        responseMap    .Add(ResponseKeys.CinInClass.ToString(), new DialogData("Oh, I missed class in the morning.")); //+
+        responseMap    .Add(ResponseKeys.CinInClass.ToString(), new DialogData(happyEmote + "Oh, I missed class in the morning.")); //+
 
         data.SelectList.Add(ResponseKeys.CinNew.ToString(), "So I am not the only new student huh?");
         responseMap    .Add(ResponseKeys.CinNew.ToString(), new DialogData(confusedEmote + "What? No, I just missed class this morning."));
@@ -171,177 +171,180 @@ public class DialoguePath : MonoBehaviour
         dialogDataList.Add(data);
 
 
-        //data = new DialogData("Anyways, what will you get for lunch?");
+        data = new DialogData("Anyways, what will you get for lunch?");
 
-        //data.SelectList.Add(ResponseKeys.DislikeFood.ToString(), "Forks.");
-        //responseMap    .Add(ResponseKeys.DislikeFood.ToString(), new DialogData(confusedEmote + "Wait, do humans eat forks?"));
+        data.SelectList.Add(ResponseKeys.CinLunchFork.ToString(), "Forks.");
+        responseMap.Add(ResponseKeys.CinLunchFork.ToString(), new DialogData(confusedEmote + "Wait, do humans eat forks?"));
 
-        //data.SelectList.Add(ResponseKeys.DislikeFood.ToString(), "Fried Rice.");
-        //responseMap    .Add(ResponseKeys.DislikeFood.ToString(), new DialogData("That’s my favorite food!")); //+
+        data.SelectList.Add(ResponseKeys.CinLunchRice.ToString(), "Fried Rice.");
+        responseMap.Add(ResponseKeys.CinLunchRice.ToString(), new DialogData(happyEmote + "That’s my favorite food!")); //+
 
-        //data.SelectList.Add(ResponseKeys.DislikeFood.ToString(), "Bob.");
-        //responseMap    .Add(ResponseKeys.DislikeFood.ToString(), new DialogData("What?? I don’t think you understood me...")); //-
+        data.SelectList.Add(ResponseKeys.CinLunchBob.ToString(), "Bob.");
+        responseMap.Add(ResponseKeys.CinLunchBob.ToString(), new DialogData(sadEmote + "What?? I don’t think you understood me...")); //-
 
 
-        //data = new DialogData("Do you want to sit next to me in the Rocket Science class this afternoon?");
+        data = new DialogData("Do you want to sit next to me in the Rocket Science class this afternoon?");
 
-        //data.SelectList.Add(ResponseKeys.DislikeFood.ToString(), "Sure.");
-        //responseMap.Add(ResponseKeys.DislikeFood.ToString(), new DialogData(happyEmote + "See you then.")); //+
+        data.SelectList.Add(ResponseKeys.CinRocSure.ToString(), "Sure.");
+        responseMap.Add(ResponseKeys.CinRocSure.ToString(), new DialogData(happyEmote + "See you then.")); //+
 
-        //data.SelectList.Add(ResponseKeys.DislikeFood.ToString(), "I really like Rocket Science.");
-        //responseMap.Add(ResponseKeys.DislikeFood.ToString(), new DialogData(confusedEmote + "Okay…"));
+        data.SelectList.Add(ResponseKeys.CinRocLike.ToString(), "I really like Rocket Science.");
+        responseMap.Add(ResponseKeys.CinRocLike.ToString(), new DialogData(confusedEmote + "Okay…"));
 
-        //data.SelectList.Add(ResponseKeys.DislikeFood.ToString(), "Do you need anything from me?");
-        //responseMap.Add(ResponseKeys.DislikeFood.ToString(), new DialogData(confusedEmote + "No, just being nice…"));
+        data.SelectList.Add(ResponseKeys.CinRocNeed.ToString(), "Do you need anything from me?");
+        responseMap.Add(ResponseKeys.CinRocNeed.ToString(), new DialogData(confusedEmote + "No, just being nice…"));
 
-        //data.SelectList.Add(ResponseKeys.DislikeFood.ToString(), "How about tomorrow?");
-        //responseMap.Add(ResponseKeys.DislikeFood.ToString(), new DialogData("I guess so."));
+        data.SelectList.Add(ResponseKeys.CinRocTomorrow.ToString(), "How about tomorrow?");
+        responseMap.Add(ResponseKeys.CinRocTomorrow.ToString(), new DialogData("I guess so."));
 
-        //dialogDataList.Add(data);
+        dialogDataList.Add(data);
 
 
-        ////Alan
+        //Alan
 
-        //data = new DialogData("Are you the new student in our cohort? I am Alan.");
+        data = new DialogData("Are you the new student in our cohort? I am Alan.");
 
-        //data.SelectList.Add(, "Yes, I am the new student.");
-        //responseMap.Add(, new DialogData("Sure."));
+        data.SelectList.Add(ResponseKeys.AlNewYes.ToString(), "Yes, I am the new student.");
+        responseMap    .Add(ResponseKeys.AlNewYes.ToString(), new DialogData("Sure."));
 
-        //data.SelectList.Add(, "Nice to meet you. I am from earth.");
-        //responseMap.Add(, new DialogData(happyEmote + "Sounds like a very distant planet.")); //+
+        data.SelectList.Add(ResponseKeys.AlNewMeet.ToString(), "Nice to meet you. I am from earth.");
+        responseMap    .Add(ResponseKeys.AlNewMeet.ToString(), new DialogData(happyEmote + "Sounds like a very distant planet.")); //+
 
-        //data.SelectList.Add(, "And you are?");
-        //responseMap.Add(, new DialogData(confusedEmote + "I am your classmate, Alan."));
+        data.SelectList.Add(ResponseKeys.AlNewName.ToString(), "And you are?");
+        responseMap    .Add(ResponseKeys.AlNewName.ToString(), new DialogData(confusedEmote + "I am your classmate, Alan."));
 
-        //dialogDataList.Add(data);
+        dialogDataList.Add(data);
 
 
-        //data = new DialogData("There are so many courses in the school. So, what is your favorite subject?");
+        data = new DialogData("There are so many courses in the school. So, what is your favorite subject?");
 
-        //data.SelectList.Add(, "Math");
-        //responseMap.Add(, new DialogData("Cindy also loves that."));
+        data.SelectList.Add(ResponseKeys.AlSubMath.ToString(), "Math");
+        responseMap    .Add(ResponseKeys.AlSubMath.ToString(), new DialogData("Cindy also loves that."));
 
-        //data.SelectList.Add(, "Space tennis");
-        //responseMap.Add(, new DialogData(confusedEmote));
+        data.SelectList.Add(ResponseKeys.AlSubTenn.ToString(), "Space tennis");
+        responseMap    .Add(ResponseKeys.AlSubTenn.ToString(), new DialogData(confusedEmote));
 
-        //data.SelectList.Add(, "My favorite is burger.");
-        //responseMap.Add(, new DialogData(confusedEmote));
+        data.SelectList.Add(ResponseKeys.AlSubBurger.ToString(), "My favorite is burger.");
+        responseMap    .Add(ResponseKeys.AlSubBurger.ToString(), new DialogData(confusedEmote));
 
-        //data.SelectList.Add(, "Rocket Science");
-        //responseMap.Add(, new DialogData(happyEmote + "Mine too!"));//++
+        data.SelectList.Add(ResponseKeys.AlSubRoc.ToString(), "Rocket Science");
+        responseMap    .Add(ResponseKeys.AlSubRoc.ToString(), new DialogData(happyEmote + "Mine too!"));//++
 
-        //dialogDataList.Add(data);
+        dialogDataList.Add(data);
 
 
 
-        //data = new DialogData("My favorite is Rocket Science. I want to build a spaceship and go wherever I want.");
+        data = new DialogData("My favorite is Rocket Science. I want to build a spaceship and go wherever I want.");
 
-        //data.SelectList.Add(, "That’s dope! Good luck with that.");
-        //responseMap    .Add(, new DialogData(happyEmote + "I know, right? Thanks."));//+
+        data.SelectList.Add(ResponseKeys.AlRocGL.ToString(), "That’s dope! Good luck with that.");
+        responseMap    .Add(ResponseKeys.AlRocGL.ToString(), new DialogData(happyEmote + "I know, right? Thanks."));//+
 
-        //data.SelectList.Add(, "You should visit earth.");
-        //responseMap    .Add(, new DialogData("Maybe..."));
+        data.SelectList.Add(ResponseKeys.AlRocEarth.ToString(), "You should visit earth.");
+        responseMap    .Add(ResponseKeys.AlRocEarth.ToString(), new DialogData("Maybe..."));
 
-        //data.SelectList.Add(, "Really? I don’t know...");
-        //responseMap    .Add(, new DialogData(sadEmote + "I will do it. After graduation, of course.")); //-
+        data.SelectList.Add(ResponseKeys.AlRocIDK.ToString(), "Really? I don’t know...");
+        responseMap    .Add(ResponseKeys.AlRocIDK.ToString(), new DialogData(sadEmote + "I will do it. After graduation, of course.")); //-
 
-        //dialogDataList.Add(data);
+        dialogDataList.Add(data);
 
 
-        ////Classroom, the next day
-        ////Cindy
+        //Classroom, the next day
+        //Cindy
 
-        //data = new DialogData("Good morning! Our first class is math.");
+        data = new DialogData("Good morning! Our first class is math.");
 
-        //data.SelectList.Add(, "That's my favorite class.");
-        //responseMap    .Add(, new DialogData(happyEmote + "It’s also my favorite!"));//++
+        data.SelectList.Add(ResponseKeys.CinClassMath.ToString(), "That's my favorite class.");
+        responseMap    .Add(ResponseKeys.CinClassMath.ToString(), new DialogData(happyEmote + "It’s also my favorite!"));//++
 
-        //data.SelectList.Add(, "I try so hard but I can never get it right.");
-        //responseMap    .Add(, new DialogData(happyEmote + "I can help you with it."));//+
+        data.SelectList.Add(ResponseKeys.CinClassTry.ToString(), "I try so hard but I can never get it right.");
+        responseMap    .Add(ResponseKeys.CinClassTry.ToString(), new DialogData(happyEmote + "I can help you with it."));//+
 
-        //data.SelectList.Add(, "Why bother? We have technology.");
-        //responseMap    .Add(, new DialogData(sadEmote + "It’s about training your thoughts in a logical way"));//-
+        data.SelectList.Add(ResponseKeys.CinClassWhy.ToString(), "Why bother? We have technology.");
+        responseMap    .Add(ResponseKeys.CinClassWhy.ToString(), new DialogData(sadEmote + "It’s about training your thoughts in a logical way"));//-
 
-        //data.SelectList.Add(, "How are you?");
-        //responseMap    .Add(, new DialogData(confusedEmote + "I’m ok? Thank you."));
+        data.SelectList.Add(ResponseKeys.CinClassHow.ToString(), "How are you?");
+        responseMap    .Add(ResponseKeys.CinClassHow.ToString(), new DialogData(confusedEmote + "I’m ok? Thank you."));
 
-        //dialogDataList.Add(data);
+        dialogDataList.Add(data);
 
 
 
-        //data = new DialogData("Finally, tomorrow is the weekend. What do you do on the weekend?");
+        data = new DialogData("Finally, tomorrow is the weekend. What do you do on the weekend?");
 
-        //data.SelectList.Add(, "Watch horror movies.");
-        //responseMap    .Add(, new DialogData(happyEmote + "I love horror movies too!"));//+
+        data.SelectList.Add(ResponseKeys.CinWeekHorr.ToString(), "Watch horror movies.");
+        responseMap    .Add(ResponseKeys.CinWeekHorr.ToString(), new DialogData(happyEmote + "I love horror movies too!"));//+
 
-        //data.SelectList.Add(, "Burger.");
-        //responseMap    .Add(, new DialogData(confusedEmote + "Okay…"));
+        data.SelectList.Add(ResponseKeys.CinWeekBurger.ToString(), "Burger.");
+        responseMap    .Add(ResponseKeys.CinWeekBurger.ToString(), new DialogData(confusedEmote + "Okay…"));
 
-        //data.SelectList.Add(, "How about you?");
-        //responseMap    .Add(, new DialogData("I watch horror movies with my family."));
+        data.SelectList.Add(ResponseKeys.CinWeekHow.ToString(), "How about you?");
+        responseMap    .Add(ResponseKeys.CinWeekHow.ToString(), new DialogData("I watch horror movies with my family."));
 
-        //dialogDataList.Add(data);
+        dialogDataList.Add(data);
 
 
-        ////Alan
+        //Alan
 
-        //data = new DialogData("Hey! What is up?");
+        data = new DialogData("Hey! What is up?");
 
-        //data.SelectList.Add(, "Pretty good! What did you get for lunch?");
-        //responseMap    .Add(, new DialogData(happyEmote + "I picked noodles today")); //+
+        data.SelectList.Add(ResponseKeys.AlWhatsLunch.ToString(), "Pretty good! What did you get for lunch?");
+        responseMap    .Add(ResponseKeys.AlWhatsLunch.ToString(), new DialogData(happyEmote + "I picked noodles today")); //+
 
-        //data.SelectList.Add(, "I’m doing great! How’s your day?");
-        //responseMap    .Add(, new DialogData(happyEmote + "I'm really looking forward to the experiment this afternoon."));//+
+        data.SelectList.Add(ResponseKeys.AlWhatsGreat.ToString(), "I’m doing great! How’s your day?");
+        responseMap    .Add(ResponseKeys.AlWhatsGreat.ToString(), new DialogData(happyEmote + "I'm really looking forward to the experiment this afternoon."));//+
 
-        //dialogDataList.Add(data);
+        dialogDataList.Add(data);
 
 
 
-        //data = new DialogData("You are from earth, right? What is school like over there?");
+        data = new DialogData("You are from earth, right? What is school like over there?");
 
-        //data.SelectList.Add(, "What school?");
-        //responseMap    .Add(, new DialogData(confusedEmote + "You don’t have school on earth?"));
+        data.SelectList.Add(ResponseKeys.AlSchoolWhat.ToString(), "What school?");
+        responseMap    .Add(ResponseKeys.AlSchoolWhat.ToString(), new DialogData(confusedEmote + "You don’t have school on earth?"));
 
-        //data.SelectList.Add(, "They also teach rocket science there.");
-        //responseMap    .Add(, new DialogData(happyEmote + "Nice!")); //+
+        data.SelectList.Add(ResponseKeys.AlSchoolRoc.ToString(), "They also teach rocket science there.");
+        responseMap    .Add(ResponseKeys.AlSchoolRoc.ToString(), new DialogData(happyEmote + "Nice!")); //+
 
-        //data.SelectList.Add(, "Yes");
-        //responseMap    .Add(, new DialogData(confusedEmote + "Yes what?"));
+        data.SelectList.Add(ResponseKeys.AlSchoolYes.ToString(), "Yes");
+        responseMap    .Add(ResponseKeys.AlSchoolYes.ToString(), new DialogData(confusedEmote + "Yes what?"));
 
-        //dialogDataList.Add(data);
+        dialogDataList.Add(data);
 
 
 
-        ////Bob
+        //Bob
 
-        //data = new DialogData("What plans do you have for the weekend? Do you want to play space tennis with me?");
+        data = new DialogData("What plans do you have for the weekend? Do you want to play space tennis with me?");
 
-        //data.SelectList.Add(, "Sorry, I don’t have time for that. I need to catch up with schoolwork.");
-        //responseMap    .Add(, new DialogData(sadEmote + "Come on. It's the weekend.")); //DONT -
+        data.SelectList.Add(ResponseKeys.AlPlansWork.ToString(), "Sorry, I don’t have time for that. I need to catch up with schoolwork.");
+        responseMap    .Add(ResponseKeys.AlPlansWork.ToString(), new DialogData(sadEmote + "Come on. It's the weekend.")); //DONT -
 
-        //data.SelectList.Add(, "I don’t like space tennis. It’s so aggressive but also pointless");//-
-        //responseMap    .Add(, new DialogData(sadEmote + "Seriously? You don’t have to say that."));
+        data.SelectList.Add(ResponseKeys.AlPlansDislike.ToString(), "I don’t like space tennis. It’s so aggressive but also pointless");//-
+        responseMap    .Add(ResponseKeys.AlPlansDislike.ToString(), new DialogData(sadEmote + "Seriously? You don’t have to say that."));
 
-        //dialogDataList.Add(data);
+        dialogDataList.Add(data);
 
 
 
 
-        //data = new DialogData("I get it. You just don’t want to hang out with me.");
+        data = new DialogData("I get it. You just don’t want to hang out with me.");
 
-        //data.SelectList.Add(, "That’s not true. Maybe we can do something together next week.");
-        //responseMap    .Add(, new DialogData("Fine, I know you are busy.")); //++
+        data.SelectList.Add(ResponseKeys.AlNoNext.ToString(), "That’s not true. Maybe we can do something together next week.");
+        responseMap    .Add(ResponseKeys.AlNoNext.ToString(), new DialogData("Fine, I know you are busy.")); //++
 
-        //data.SelectList.Add(, "Ok, I’ll go with you.");
-        //responseMap    .Add(, new DialogData(happyEmote + "Let’s go."));//+
+        data.SelectList.Add(ResponseKeys.AlNoGo.ToString(), "Ok, I’ll go with you.");
+        responseMap    .Add(ResponseKeys.AlNoGo.ToString(), new DialogData(happyEmote + "Let’s go."));//+
 
-        //data.SelectList.Add(, "I guess so.");
-        //responseMap    .Add(, new DialogData("Ok. Whatever."));
+        data.SelectList.Add(ResponseKeys.AlNoGuessSo.ToString(), "I guess so.");
+        responseMap    .Add(ResponseKeys.AlNoGuessSo.ToString(), new DialogData("Ok. Whatever."));
 
-        //dialogDataList.Add(data);
+        dialogDataList.Add(data);
 
 
-
+        foreach(DialogData item in dialogDataList)
+        {
+            item.Callback = () => ShowResponse();
+        }
 
         //data = new DialogData("");
 
