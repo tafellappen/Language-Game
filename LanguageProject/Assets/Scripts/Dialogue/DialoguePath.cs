@@ -123,7 +123,7 @@ public class DialoguePath : MonoBehaviour
 
         dialogDataList.Add(new DialogData(" ")); //just a hack to not have the symbols in the way for now, since im not calling translate on anything
         DialogData data = new DialogData("Welcome to our class. I’m super excited to meet you, the first human from earth.", nameBob);
-        data.SelectList.Add("we dont need this linked", "(continue)"); //fp+
+        data.SelectList.Add("we dont need this linked", "(continue)");
         dialogDataList.Add(data);
         //dialogDataList[0].Callback = () => { translatorScript.PleaseTranslate = true; };
 
@@ -133,8 +133,11 @@ public class DialoguePath : MonoBehaviour
         data = new DialogData("I’m always interested in earth civilizations, so I have tons of questions about earth!");
 
         data.SelectList.Add(ResponseKeys.Me.ToString(), "Of course!"); //fp+
-        responseMap    .Add(ResponseKeys.Me.ToString(), new DialogData(happyEmote + "I will! Let me consider what to ask first though."));
+        DialogData dummy  = new DialogData(happyEmote + "I will! Let me consider what to ask first though.");
+        //dummy.SelectList.Add("we dontsdsd need this linked", "(continue)");
+        responseMap    .Add(ResponseKeys.Me.ToString(), dummy);
         friendshipMap.Add(ResponseKeys.Me.ToString(), new FriendshipValChange(nameAlan, 1));
+        //responseMap[ResponseKeys.Me.ToString()].SelectList.Add("we dontsdsd need this linked", "(continue)");
 
         data.SelectList.Add(ResponseKeys.You.ToString(), "I also have many questions about your home planet.");//fp+
         responseMap    .Add(ResponseKeys.You.ToString(), new DialogData(happyEmote + "Is that so? Then we will have a lot to talk about"));
@@ -416,12 +419,17 @@ public class DialoguePath : MonoBehaviour
         foreach(DialogData item in dialogDataList)
         {
             item.Callback = () => ShowResponse();
-            foreach(KeyValuePair<string, DialogData> pair in responseMap)
-            {
-                //pair.Value.Callback = () => { translator.PleaseTranslate = true; };
-                pair.Value.Callback = () => translator.TranslateNext(false);
-            }
         }
+
+        foreach (KeyValuePair<string, DialogData> pair in responseMap)
+        {
+            ////pair.Value.Callback = () => { Debug.Log("nerd"); };
+            //pair.Value.SelectList.Add("we dontsdsd need this linked", "(continue)");
+            //pair.Value.Callback = () => translator.TranslateNext(true);
+            //Debug.Log(pair.Key + pair.Value.SelectList.Get_Value("we dontsdsd need this linked"));
+        }
+
+        dialogDataList.Add(new DialogData("The End", ""));
 
         DialogManager.Show(dialogDataList);
 
@@ -461,7 +469,8 @@ public class DialoguePath : MonoBehaviour
         }
         //translator.PleaseTranslate = true;
 
-        translator.TranslateNext(true);
+        //translator.TranslateNext(false);
+        DialogManager.letNextTranslate = true;
 
 
     }

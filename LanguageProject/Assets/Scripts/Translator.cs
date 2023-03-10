@@ -116,6 +116,7 @@ public class Translator : MonoBehaviour
     public void TranslateNext(bool allowLearning) {
         needsTranslate = true;
         nextTranslateLearnable = allowLearning;
+        Debug.Log(nextTranslateLearnable);
     }
 
     public void Translate(bool allowLearning = true)

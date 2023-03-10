@@ -9,7 +9,7 @@ public static class FileWriter
     public static void WriteData(List<int> friendValues) {
         StreamWriter writer = null;
         try {
-            writer = new StreamWriter(Application.dataPath + "/LonelySpace Data.txt", true);
+            writer = new StreamWriter(Application.dataPath + "/LonelySpaceData" + DateTime.Now +".txt", true);
             writer.WriteLine("\n" + DateTime.Now);
             for(int i = 0; i < friendValues.Count; i++) {
                 writer.Write(friendValues[i] + ", ");
