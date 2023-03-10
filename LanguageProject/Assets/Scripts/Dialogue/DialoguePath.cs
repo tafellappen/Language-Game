@@ -122,13 +122,14 @@ public class DialoguePath : MonoBehaviour
         characterFriendshipStatus.Add(nameAlan, 0);
 
         dialogDataList.Add(new DialogData(" ")); //just a hack to not have the symbols in the way for now, since im not calling translate on anything
-        dialogDataList.Add(new DialogData("Welcome to our class. I’m super excited to meet you, as the first human from earth.", nameBob));
+        DialogData data = new DialogData("Welcome to our class. I’m super excited to meet you, the first human from earth.", nameBob);
+        data.SelectList.Add("we dont need this linked", "(continue)"); //fp+
+        dialogDataList.Add(data);
         //dialogDataList[0].Callback = () => { translatorScript.PleaseTranslate = true; };
 
 
         //Bob
 
-        DialogData data;
         data = new DialogData("I’m always interested in earth civilizations, so I have tons of questions about earth!");
 
         data.SelectList.Add(ResponseKeys.Me.ToString(), "Of course!"); //fp+
