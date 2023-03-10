@@ -20,6 +20,13 @@ public class DialoguePath : MonoBehaviour
     /// </summary>
     Dictionary<string, FriendshipValChange> friendshipMap = new Dictionary<string, FriendshipValChange>();
     Dictionary<string, int> characterFriendshipStatus = new Dictionary<string, int>();
+
+    public Dictionary<string, int> CharacterFriendshipStatus
+    {
+        get { return characterFriendshipStatus; }
+        set { characterFriendshipStatus = value; }
+    }
+
     //idea for friendship values: we can probably map responses to corresponding friendship values as well, depending on how we want them to work...
     List<DialogData> dialogDataList = new List<DialogData>();
 
@@ -114,14 +121,14 @@ public class DialoguePath : MonoBehaviour
         characterFriendshipStatus.Add(nameAlan, 0);
 
         dialogDataList.Add(new DialogData(" ")); //just a hack to not have the symbols in the way for now, since im not calling translate on anything
-        dialogDataList.Add(new DialogData("Welcome to our class. I’m super excited to meet you, as the first human from earth.", nameBob));
+        dialogDataList.Add(new DialogData("Welcome to our class. Iï¿½m super excited to meet you, as the first human from earth.", nameBob));
         //dialogDataList[0].Callback = () => { translatorScript.PleaseTranslate = true; };
 
 
         //Bob
 
         DialogData data;
-        data = new DialogData("I’m always interested in earth civilizations, so I have tons of questions about earth!");
+        data = new DialogData("Iï¿½m always interested in earth civilizations, so I have tons of questions about earth!");
 
         data.SelectList.Add(ResponseKeys.Me.ToString(), "Of course!"); //fp+
         responseMap    .Add(ResponseKeys.Me.ToString(), new DialogData(happyEmote + "I will! Let me consider what to ask first though."));
@@ -141,7 +148,7 @@ public class DialoguePath : MonoBehaviour
         data = new DialogData("Is it true that gravity on earth is so strong that everything stays on the ground?");
 
         data.SelectList.Add(ResponseKeys.YesGravity.ToString(), "Of course!");
-        responseMap    .Add(ResponseKeys.YesGravity.ToString(), new DialogData("I see…"));
+        responseMap    .Add(ResponseKeys.YesGravity.ToString(), new DialogData("I seeï¿½"));
 
         data.SelectList.Add(ResponseKeys.PredictGravity.ToString(), "Yes, it allows us to predict movement and organize our life accordingly."); //+
         responseMap    .Add(ResponseKeys.PredictGravity.ToString(), new DialogData(happyEmote + "Nice! I never thought of gravity in that way."));
@@ -159,7 +166,7 @@ public class DialoguePath : MonoBehaviour
         data.SelectList.Add(ResponseKeys.LikeFood.ToString(), "I like the food here, quite different from what we had on earth.");
         responseMap    .Add(ResponseKeys.LikeFood.ToString(), new DialogData("Cut it out, I know earth has much better food."));
 
-        data.SelectList.Add(ResponseKeys.DislikeFood.ToString(), "It’s so boring. I miss that from earth."); //fp+
+        data.SelectList.Add(ResponseKeys.DislikeFood.ToString(), "Itï¿½s so boring. I miss that from earth."); //fp+
         responseMap    .Add(ResponseKeys.DislikeFood.ToString(), new DialogData(happyEmote + "Exactly. You have quite a diverse food culture."));
         friendshipMap.Add(ResponseKeys.DislikeFood.ToString(), new FriendshipValChange(nameAlan, 1));
 
@@ -176,7 +183,7 @@ public class DialoguePath : MonoBehaviour
         data.SelectList.Add(ResponseKeys.CinNiceMeet.ToString(), "Hello. Nice to meet you.");
         responseMap    .Add(ResponseKeys.CinNiceMeet.ToString(), new DialogData("Nice to meet you too."));
 
-        data.SelectList.Add(ResponseKeys.CinInClass.ToString(), "Are you in my class? I don’t remember seeing you in our classroom.");
+        data.SelectList.Add(ResponseKeys.CinInClass.ToString(), "Are you in my class? I donï¿½t remember seeing you in our classroom.");
         responseMap    .Add(ResponseKeys.CinInClass.ToString(), new DialogData(happyEmote + "Oh, I missed class in the morning.")); //+
         friendshipMap.Add(ResponseKeys.CinInClass.ToString(), new FriendshipValChange(nameCindy, 1));
 
@@ -192,11 +199,11 @@ public class DialoguePath : MonoBehaviour
         responseMap.Add(ResponseKeys.CinLunchFork.ToString(), new DialogData(confusedEmote + "Wait, do humans eat forks?"));
 
         data.SelectList.Add(ResponseKeys.CinLunchRice.ToString(), "Fried Rice.");
-        responseMap.Add(ResponseKeys.CinLunchRice.ToString(), new DialogData(happyEmote + "That’s my favorite food!")); //+
+        responseMap.Add(ResponseKeys.CinLunchRice.ToString(), new DialogData(happyEmote + "Thatï¿½s my favorite food!")); //+
         friendshipMap.Add(ResponseKeys.CinLunchRice.ToString(), new FriendshipValChange(nameCindy, 1));
 
         data.SelectList.Add(ResponseKeys.CinLunchBob.ToString(), "Bob.");
-        responseMap.Add(ResponseKeys.CinLunchBob.ToString(), new DialogData(sadEmote + "What?? I don’t think you understood me...")); //-
+        responseMap.Add(ResponseKeys.CinLunchBob.ToString(), new DialogData(sadEmote + "What?? I donï¿½t think you understood me...")); //-
         friendshipMap.Add(ResponseKeys.CinLunchBob.ToString(), new FriendshipValChange(nameCindy, -1));
 
 
@@ -207,10 +214,10 @@ public class DialoguePath : MonoBehaviour
         friendshipMap.Add(ResponseKeys.CinRocSure.ToString(), new FriendshipValChange(nameCindy, 1));
 
         data.SelectList.Add(ResponseKeys.CinRocLike.ToString(), "I really like Rocket Science.");
-        responseMap.Add(ResponseKeys.CinRocLike.ToString(), new DialogData(confusedEmote + "Okay…"));
+        responseMap.Add(ResponseKeys.CinRocLike.ToString(), new DialogData(confusedEmote + "Okayï¿½"));
 
         data.SelectList.Add(ResponseKeys.CinRocNeed.ToString(), "Do you need anything from me?");
-        responseMap.Add(ResponseKeys.CinRocNeed.ToString(), new DialogData(confusedEmote + "No, just being nice…"));
+        responseMap.Add(ResponseKeys.CinRocNeed.ToString(), new DialogData(confusedEmote + "No, just being niceï¿½"));
 
         data.SelectList.Add(ResponseKeys.CinRocTomorrow.ToString(), "How about tomorrow?");
         responseMap.Add(ResponseKeys.CinRocTomorrow.ToString(), new DialogData("I guess so."));
@@ -256,14 +263,14 @@ public class DialoguePath : MonoBehaviour
 
         data = new DialogData("My favorite is Rocket Science. I want to build a spaceship and go wherever I want.");
 
-        data.SelectList.Add(ResponseKeys.AlRocGL.ToString(), "That’s dope! Good luck with that.");
+        data.SelectList.Add(ResponseKeys.AlRocGL.ToString(), "Thatï¿½s dope! Good luck with that.");
         responseMap    .Add(ResponseKeys.AlRocGL.ToString(), new DialogData(happyEmote + "I know, right? Thanks."));//+
         friendshipMap.Add(ResponseKeys.AlRocGL.ToString(), new FriendshipValChange(nameAlan, 1));
 
         data.SelectList.Add(ResponseKeys.AlRocEarth.ToString(), "You should visit earth.");
         responseMap    .Add(ResponseKeys.AlRocEarth.ToString(), new DialogData("Maybe..."));
 
-        data.SelectList.Add(ResponseKeys.AlRocIDK.ToString(), "Really? I don’t know...");
+        data.SelectList.Add(ResponseKeys.AlRocIDK.ToString(), "Really? I donï¿½t know...");
         responseMap    .Add(ResponseKeys.AlRocIDK.ToString(), new DialogData(sadEmote + "I will do it. After graduation, of course.")); //-
         friendshipMap.Add(ResponseKeys.AlRocIDK.ToString(), new FriendshipValChange(nameAlan, -1));
 
@@ -276,7 +283,7 @@ public class DialoguePath : MonoBehaviour
         data = new DialogData("Good morning! Our first class is math.", nameCindy);
 
         data.SelectList.Add(ResponseKeys.CinClassMath.ToString(), "That's my favorite class.");
-        responseMap    .Add(ResponseKeys.CinClassMath.ToString(), new DialogData(happyEmote + "It’s also my favorite!"));//++
+        responseMap    .Add(ResponseKeys.CinClassMath.ToString(), new DialogData(happyEmote + "Itï¿½s also my favorite!"));//++
         friendshipMap.Add(ResponseKeys.CinClassMath.ToString(), new FriendshipValChange(nameCindy, 2));
 
         data.SelectList.Add(ResponseKeys.CinClassTry.ToString(), "I try so hard but I can never get it right.");
@@ -284,11 +291,11 @@ public class DialoguePath : MonoBehaviour
         friendshipMap.Add(ResponseKeys.CinClassTry.ToString(), new FriendshipValChange(nameCindy, 1));
 
         data.SelectList.Add(ResponseKeys.CinClassWhy.ToString(), "Why bother? We have technology.");
-        responseMap    .Add(ResponseKeys.CinClassWhy.ToString(), new DialogData(sadEmote + "It’s about training your thoughts in a logical way"));//-
+        responseMap    .Add(ResponseKeys.CinClassWhy.ToString(), new DialogData(sadEmote + "Itï¿½s about training your thoughts in a logical way"));//-
         friendshipMap.Add(ResponseKeys.CinClassWhy.ToString(), new FriendshipValChange(nameCindy, -1));
 
         data.SelectList.Add(ResponseKeys.CinClassHow.ToString(), "How are you?");
-        responseMap    .Add(ResponseKeys.CinClassHow.ToString(), new DialogData(confusedEmote + "I’m ok? Thank you."));
+        responseMap    .Add(ResponseKeys.CinClassHow.ToString(), new DialogData(confusedEmote + "Iï¿½m ok? Thank you."));
 
         dialogDataList.Add(data);
 
@@ -301,7 +308,7 @@ public class DialoguePath : MonoBehaviour
         friendshipMap.Add(ResponseKeys.CinWeekHorr.ToString(), new FriendshipValChange(nameCindy, 1));
 
         data.SelectList.Add(ResponseKeys.CinWeekBurger.ToString(), "Burger.");
-        responseMap    .Add(ResponseKeys.CinWeekBurger.ToString(), new DialogData(confusedEmote + "Okay…"));
+        responseMap    .Add(ResponseKeys.CinWeekBurger.ToString(), new DialogData(confusedEmote + "Okayï¿½"));
 
         data.SelectList.Add(ResponseKeys.CinWeekHow.ToString(), "How about you?");
         responseMap    .Add(ResponseKeys.CinWeekHow.ToString(), new DialogData("I watch horror movies with my family."));
@@ -317,7 +324,7 @@ public class DialoguePath : MonoBehaviour
         responseMap    .Add(ResponseKeys.AlWhatsLunch.ToString(), new DialogData(happyEmote + "I picked noodles today")); //+
         friendshipMap.Add(ResponseKeys.AlWhatsLunch.ToString(), new FriendshipValChange(nameAlan, 1));
 
-        data.SelectList.Add(ResponseKeys.AlWhatsGreat.ToString(), "I’m doing great! How’s your day?");
+        data.SelectList.Add(ResponseKeys.AlWhatsGreat.ToString(), "Iï¿½m doing great! Howï¿½s your day?");
         responseMap    .Add(ResponseKeys.AlWhatsGreat.ToString(), new DialogData(happyEmote + "I'm really looking forward to the experiment this afternoon."));//+
         friendshipMap.Add(ResponseKeys.AlWhatsGreat.ToString(), new FriendshipValChange(nameAlan, 1));
 
@@ -328,7 +335,7 @@ public class DialoguePath : MonoBehaviour
         data = new DialogData("You are from earth, right? What is school like over there?");
 
         data.SelectList.Add(ResponseKeys.AlSchoolWhat.ToString(), "What school?");
-        responseMap    .Add(ResponseKeys.AlSchoolWhat.ToString(), new DialogData(confusedEmote + "You don’t have school on earth?"));
+        responseMap    .Add(ResponseKeys.AlSchoolWhat.ToString(), new DialogData(confusedEmote + "You donï¿½t have school on earth?"));
 
         data.SelectList.Add(ResponseKeys.AlSchoolRoc.ToString(), "They also teach rocket science there.");
         responseMap    .Add(ResponseKeys.AlSchoolRoc.ToString(), new DialogData(happyEmote + "Nice!")); //+
@@ -345,11 +352,11 @@ public class DialoguePath : MonoBehaviour
 
         data = new DialogData("What plans do you have for the weekend? Do you want to play space tennis with me?", nameBob);
 
-        data.SelectList.Add(ResponseKeys.AlPlansWork.ToString(), "Sorry, I don’t have time for that. I need to catch up with schoolwork.");
+        data.SelectList.Add(ResponseKeys.AlPlansWork.ToString(), "Sorry, I donï¿½t have time for that. I need to catch up with schoolwork.");
         responseMap    .Add(ResponseKeys.AlPlansWork.ToString(), new DialogData(sadEmote + "Come on. It's the weekend.")); //DONT -
 
-        data.SelectList.Add(ResponseKeys.AlPlansDislike.ToString(), "I don’t like space tennis. It’s so aggressive but also pointless");//-
-        responseMap    .Add(ResponseKeys.AlPlansDislike.ToString(), new DialogData(sadEmote + "Seriously? You don’t have to say that."));
+        data.SelectList.Add(ResponseKeys.AlPlansDislike.ToString(), "I donï¿½t like space tennis. Itï¿½s so aggressive but also pointless");//-
+        responseMap    .Add(ResponseKeys.AlPlansDislike.ToString(), new DialogData(sadEmote + "Seriously? You donï¿½t have to say that."));
         friendshipMap.Add(ResponseKeys.AlPlansDislike.ToString(), new FriendshipValChange(nameBob, -1));
 
         dialogDataList.Add(data);
@@ -357,14 +364,14 @@ public class DialoguePath : MonoBehaviour
 
 
 
-        data = new DialogData("I get it. You just don’t want to hang out with me.");
+        data = new DialogData("I get it. You just donï¿½t want to hang out with me.");
 
-        data.SelectList.Add(ResponseKeys.AlNoNext.ToString(), "That’s not true. Maybe we can do something together next week.");
+        data.SelectList.Add(ResponseKeys.AlNoNext.ToString(), "Thatï¿½s not true. Maybe we can do something together next week.");
         responseMap    .Add(ResponseKeys.AlNoNext.ToString(), new DialogData("Fine, I know you are busy.")); //++
         friendshipMap.Add(ResponseKeys.AlNoNext.ToString(), new FriendshipValChange(nameBob, 2));
 
-        data.SelectList.Add(ResponseKeys.AlNoGo.ToString(), "Ok, I’ll go with you.");
-        responseMap    .Add(ResponseKeys.AlNoGo.ToString(), new DialogData(happyEmote + "Let’s go."));//+
+        data.SelectList.Add(ResponseKeys.AlNoGo.ToString(), "Ok, Iï¿½ll go with you.");
+        responseMap    .Add(ResponseKeys.AlNoGo.ToString(), new DialogData(happyEmote + "Letï¿½s go."));//+
         friendshipMap.Add(ResponseKeys.AlNoGo.ToString(), new FriendshipValChange(nameBob, 1));
 
         data.SelectList.Add(ResponseKeys.AlNoGuessSo.ToString(), "I guess so.");
@@ -420,7 +427,7 @@ public class DialoguePath : MonoBehaviour
         responseMap.Add(ResponseKeys.You.ToString(), new DialogData(happyEmote + "Is that so? Then we will have a lot to talk about"));
         responseMap.Add(ResponseKeys.FromEarth.ToString(), new DialogData(confusedEmote + "Ok?..."));
 
-        responseMap.Add(ResponseKeys.YesGravity.ToString(), new DialogData("I see…"));
+        responseMap.Add(ResponseKeys.YesGravity.ToString(), new DialogData("I seeï¿½"));
         responseMap.Add(ResponseKeys.PredictGravity.ToString(), new DialogData("Nice! I never thought of gravity in that way."));
         responseMap.Add(ResponseKeys.GravityExceptions.ToString(), new DialogData("Cool. I have never been to a planet with that level of gravity"));
 
