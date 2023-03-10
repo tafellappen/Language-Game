@@ -157,7 +157,7 @@ public class DialoguePath : MonoBehaviour
 
         //Cindy
         
-        data = new DialogData("Hi! You must be the new student from Earth! My name is Cindy!");
+        data = new DialogData("Hi! You must be the new student from Earth! My name is Cindy!", nameCindy);
 
         data.SelectList.Add(ResponseKeys.CinNiceMeet.ToString(), "Hello. Nice to meet you.");
         responseMap    .Add(ResponseKeys.CinNiceMeet.ToString(), new DialogData("Nice to meet you too."));
@@ -202,7 +202,7 @@ public class DialoguePath : MonoBehaviour
 
         //Alan
 
-        data = new DialogData("Are you the new student in our cohort? I am Alan.");
+        data = new DialogData("Are you the new student in our cohort? I am Alan.", nameAlan);
 
         data.SelectList.Add(ResponseKeys.AlNewYes.ToString(), "Yes, I am the new student.");
         responseMap    .Add(ResponseKeys.AlNewYes.ToString(), new DialogData("Sure."));
@@ -251,7 +251,7 @@ public class DialoguePath : MonoBehaviour
         //Classroom, the next day
         //Cindy
 
-        data = new DialogData("Good morning! Our first class is math.");
+        data = new DialogData("Good morning! Our first class is math.", nameCindy);
 
         data.SelectList.Add(ResponseKeys.CinClassMath.ToString(), "That's my favorite class.");
         responseMap    .Add(ResponseKeys.CinClassMath.ToString(), new DialogData(happyEmote + "It’s also my favorite!"));//++
@@ -285,7 +285,7 @@ public class DialoguePath : MonoBehaviour
 
         //Alan
 
-        data = new DialogData("Hey! What is up?");
+        data = new DialogData("Hey! What is up?", nameAlan);
 
         data.SelectList.Add(ResponseKeys.AlWhatsLunch.ToString(), "Pretty good! What did you get for lunch?");
         responseMap    .Add(ResponseKeys.AlWhatsLunch.ToString(), new DialogData(happyEmote + "I picked noodles today")); //+
@@ -314,7 +314,7 @@ public class DialoguePath : MonoBehaviour
 
         //Bob
 
-        data = new DialogData("What plans do you have for the weekend? Do you want to play space tennis with me?");
+        data = new DialogData("What plans do you have for the weekend? Do you want to play space tennis with me?", nameBob);
 
         data.SelectList.Add(ResponseKeys.AlPlansWork.ToString(), "Sorry, I don’t have time for that. I need to catch up with schoolwork.");
         responseMap    .Add(ResponseKeys.AlPlansWork.ToString(), new DialogData(sadEmote + "Come on. It's the weekend.")); //DONT -
@@ -398,7 +398,11 @@ public class DialoguePath : MonoBehaviour
 
     private void ShowResponse()
     {
-        DialogManager.Show(responseMap[DialogManager.Result]);
+        if (responseMap.ContainsKey(DialogManager.Result))
+        {
+            DialogManager.Show(responseMap[DialogManager.Result]);
+
+        }
 
         if(friendshipMap.ContainsKey(DialogManager.Result))
         {
