@@ -10,6 +10,7 @@ public class Translator : MonoBehaviour
     [SerializeField] private GameObject LetterCover;
     [SerializeField] private SpeechBubbleScript speechBubble;
     [SerializeField] private GameObject learnableSign;
+    [SerializeField] private List<Sprite> learnableSignSprites;
     private const float manualShift = 0.05f; // decrease text advance manually through guess and check
     private const float verticalShift = 1.5f;
     private const int NUM_LEARNABLE = 2;
@@ -23,7 +24,8 @@ public class Translator : MonoBehaviour
     private int learnableLeft;
     private List<GameObject> covers; // track covers so they can be deleted
 
-    public bool PleaseTranslate { get; set; } // temporary?
+    private bool needsTranslate;
+    private bool nextTranslateLearnable;
 
     void Start()
     {
@@ -58,13 +60,11 @@ public class Translator : MonoBehaviour
             return;
         }
 
-        if(PleaseTranslate) {
-            Translate(true);
-            PleaseTranslate = false;
+        if(needsTranslate) {
+            Translate(nextTranslateLearnable);
+            needsTranslate = false;
         }
 
-        //Debug.Log(covers[0].GetComponent<Image>().rectTransform.sizeDelta.x);
-        //Debug.Log(Input.mousePosition + ", " + Camera.main.ScreenToWorldPoint(Input.mousePosition));
         if(learnableLeft > 0) {
             // check for hover over unknown word
             Vector2 mousPos = Input.mousePosition;
@@ -97,7 +97,7 @@ public class Translator : MonoBehaviour
                 if(Input.GetMouseButtonDown(0)) {
                     dictionary.GetWord(hoveredWord).Known = true;
                     learnableLeft--;
-                    learnableSign.transform.GetChild(0).gameObject.GetComponent<Text>().text = "" + learnableLeft;
+                    learnableSign.GetComponent<Image>().sprite = learnableSignSprites[learnableLeft];
 
                     foreach(GameObject cover in covers) {
                         LetterScript script = cover.GetComponent<LetterScript>();
@@ -110,6 +110,12 @@ public class Translator : MonoBehaviour
                 }
             }
         }
+    }
+
+    // translates the text box next frame so the text can change first
+    public void TranslateNext(bool allowLearning) {
+        needsTranslate = true;
+        nextTranslateLearnable = allowLearning;
     }
 
     public void Translate(bool allowLearning = true)
@@ -233,7 +239,7 @@ public class Translator : MonoBehaviour
         if(allowLearning) {
             learnableLeft = NUM_LEARNABLE;
             learnableSign.SetActive(true);
-            learnableSign.transform.GetChild(0).gameObject.GetComponent<Text>().text = "" + learnableLeft;
+            learnableSign.GetComponent<Image>().sprite = learnableSignSprites[learnableLeft];
         }
     }
 
