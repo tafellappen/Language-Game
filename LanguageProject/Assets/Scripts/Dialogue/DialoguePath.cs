@@ -21,6 +21,7 @@ public class DialoguePath : MonoBehaviour
     /// </summary>
     Dictionary<string, FriendshipValChange> friendshipMap = new Dictionary<string, FriendshipValChange>();
     Dictionary<string, int> characterFriendshipStatus = new Dictionary<string, int>();
+    List<int> friendshipChangeLog = new List<int>();
 
     public Dictionary<string, int> CharacterFriendshipStatus
     {
@@ -429,7 +430,11 @@ public class DialoguePath : MonoBehaviour
             //Debug.Log(pair.Key + pair.Value.SelectList.Get_Value("we dontsdsd need this linked"));
         }
 
-        dialogDataList.Add(new DialogData("The End", ""));
+        DialogData endData = new DialogData("The End", "");
+        endData.SelectList.Add("end", "Ok");
+        endData.SelectList.Add("end2", "Okk");
+        endData.Callback = () => FileWriter.WriteData(friendshipChangeLog);
+        dialogDataList.Add(endData);
 
         DialogManager.Show(dialogDataList);
 
@@ -464,7 +469,8 @@ public class DialoguePath : MonoBehaviour
 
             characterFriendshipStatus[change.characterName] += change.amount;
 
-            Debug.Log(change.characterName + change.amount);
+            //Debug.Log(change.characterName + change.amount);
+            friendshipChangeLog.Add(change.amount);
 
         }
         //translator.PleaseTranslate = true;
