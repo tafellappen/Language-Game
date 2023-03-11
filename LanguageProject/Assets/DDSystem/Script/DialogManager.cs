@@ -36,6 +36,9 @@ namespace Doublsb.Dialog
         //================================================
         //Public Variable
         //================================================
+        public Translator translator;
+        public bool letNextTranslate;
+
         [Header("Game Objects")]
         public GameObject Printer;
         public GameObject Characters;
@@ -324,6 +327,17 @@ namespace Doublsb.Dialog
 
         private IEnumerator _print(string Text)
         {
+            if(translator)
+            {
+
+                translator.TranslateNext(letNextTranslate);
+            }
+
+            if(letNextTranslate)
+            {
+                letNextTranslate = false;
+            }
+
             _current_Data.PrintText += _current_Data.Format.OpenTagger;
 
             for (int i = 0; i < Text.Length; i++)

@@ -50,7 +50,7 @@ public class Translator : MonoBehaviour
             dictionary.GetWord(word).Known = true;
         }
 
-        Translate(false);    
+        //Translate(false);    
     }
 
     void Update() {
@@ -116,6 +116,7 @@ public class Translator : MonoBehaviour
     public void TranslateNext(bool allowLearning) {
         needsTranslate = true;
         nextTranslateLearnable = allowLearning;
+        Debug.Log(nextTranslateLearnable);
     }
 
     public void Translate(bool allowLearning = true)
