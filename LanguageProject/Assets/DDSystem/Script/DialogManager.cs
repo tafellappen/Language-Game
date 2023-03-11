@@ -327,7 +327,12 @@ namespace Doublsb.Dialog
 
         private IEnumerator _print(string Text)
         {
-            translator.TranslateNext(letNextTranslate);
+            if(translator)
+            {
+
+                translator.TranslateNext(letNextTranslate);
+            }
+
             if(letNextTranslate)
             {
                 letNextTranslate = false;

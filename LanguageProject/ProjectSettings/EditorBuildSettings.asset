@@ -11,7 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 15f4e52df22a1bd4eb0e5c9ec1cadfc5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DialogueTesting.unity
     guid: 579cc75ba735bd64eb673f4d1ead4176
+  - enabled: 1
+    path: Assets/Scenes/NewDialogue.unity
+    guid: e5c1bed17326b234f87c9190da6ef1ae
+  - enabled: 1
+    path: Assets/Scenes/Ending.unity
+    guid: a86f602aabf06774b868cf7b675bb87e
   m_configObjects: {}

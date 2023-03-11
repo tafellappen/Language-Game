@@ -2,10 +2,10 @@ using Doublsb.Dialog;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 /// <summary>
-/// The theory I will be testing out here is that you can just use a dictionary to map player responses to alien responses. 
+/// This class uses the DDialogue system from the asset store to deliver most of the game text to the player
 /// </summary>
 public class DialoguePath : MonoBehaviour
 {
@@ -118,6 +118,8 @@ public class DialoguePath : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(transform.gameObject);
+
         characterFriendshipStatus.Add(nameBob, 0);
         characterFriendshipStatus.Add(nameCindy, 0);
         characterFriendshipStatus.Add(nameAlan, 0);
@@ -254,10 +256,10 @@ public class DialoguePath : MonoBehaviour
         responseMap    .Add(ResponseKeys.AlSubMath.ToString(), new DialogData("Cindy also loves that."));
 
         data.SelectList.Add(ResponseKeys.AlSubTenn.ToString(), "Space tennis");
-        responseMap    .Add(ResponseKeys.AlSubTenn.ToString(), new DialogData(confusedEmote));
+        responseMap    .Add(ResponseKeys.AlSubTenn.ToString(), new DialogData(confusedEmote + "..."));
 
         data.SelectList.Add(ResponseKeys.AlSubBurger.ToString(), "My favorite is burger.");
-        responseMap    .Add(ResponseKeys.AlSubBurger.ToString(), new DialogData(confusedEmote));
+        responseMap    .Add(ResponseKeys.AlSubBurger.ToString(), new DialogData(confusedEmote + "..."));
 
         data.SelectList.Add(ResponseKeys.AlSubRoc.ToString(), "Rocket Science");
         responseMap    .Add(ResponseKeys.AlSubRoc.ToString(), new DialogData(happyEmote + "Mine too!"));//++
@@ -433,7 +435,7 @@ public class DialoguePath : MonoBehaviour
         DialogData endData = new DialogData("The End", "");
         endData.SelectList.Add("end", "Ok");
         //endData.SelectList.Add("end2", "Okk");
-        endData.Callback = () => FileWriter.WriteData(friendshipChangeLog);
+        endData.Callback = () => EndGame();
         dialogDataList.Add(endData);
 
         DialogManager.Show(dialogDataList);
@@ -479,6 +481,13 @@ public class DialoguePath : MonoBehaviour
         DialogManager.letNextTranslate = true;
 
 
+    }
+
+    private void EndGame()
+    {
+        FileWriter.WriteData(friendshipChangeLog);
+
+        SceneManager.LoadScene("Ending");
     }
 
 }
