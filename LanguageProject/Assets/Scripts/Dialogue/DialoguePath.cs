@@ -432,7 +432,7 @@ public class DialoguePath : MonoBehaviour
 
         DialogData endData = new DialogData("The End", "");
         endData.SelectList.Add("end", "Ok");
-        endData.SelectList.Add("end2", "Okk");
+        //endData.SelectList.Add("end2", "Okk");
         endData.Callback = () => FileWriter.WriteData(friendshipChangeLog);
         dialogDataList.Add(endData);
 
