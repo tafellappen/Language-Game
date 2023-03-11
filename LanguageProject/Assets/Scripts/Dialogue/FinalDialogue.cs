@@ -14,7 +14,7 @@ public class FinalDialogue : MonoBehaviour
         DialogData data;
         List<DialogData> dialogTexts = new List<DialogData>();
         data = new DialogData("Welcome to our class. I’m super excited to meet you, as the first human from earth.", "AlienCharacter");
-        data.Callback = () => { translatorScript.PleaseTranslate = true; };
+        //data.Callback = () => { translatorScript.PleaseTranslate = true; };
         dialogTexts.Add(data);
         
         data = new DialogData("I’m always interested in earth civilizations, so I have tons of questions about earth!", "AlienCharacter");
