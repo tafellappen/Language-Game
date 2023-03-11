@@ -254,10 +254,10 @@ public class DialoguePath : MonoBehaviour
         responseMap    .Add(ResponseKeys.AlSubMath.ToString(), new DialogData("Cindy also loves that."));
 
         data.SelectList.Add(ResponseKeys.AlSubTenn.ToString(), "Space tennis");
-        responseMap    .Add(ResponseKeys.AlSubTenn.ToString(), new DialogData(confusedEmote));
+        responseMap    .Add(ResponseKeys.AlSubTenn.ToString(), new DialogData(confusedEmote + "..."));
 
         data.SelectList.Add(ResponseKeys.AlSubBurger.ToString(), "My favorite is burger.");
-        responseMap    .Add(ResponseKeys.AlSubBurger.ToString(), new DialogData(confusedEmote));
+        responseMap    .Add(ResponseKeys.AlSubBurger.ToString(), new DialogData(confusedEmote + "..."));
 
         data.SelectList.Add(ResponseKeys.AlSubRoc.ToString(), "Rocket Science");
         responseMap    .Add(ResponseKeys.AlSubRoc.ToString(), new DialogData(happyEmote + "Mine too!"));//++
