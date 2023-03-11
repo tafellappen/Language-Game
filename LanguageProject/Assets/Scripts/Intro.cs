@@ -18,7 +18,7 @@ public class Intro : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        info = intro.GetCurrentAnimatorState(0);
+        info = intro.GetCurrentAnimatorStateInfo(0);
         if (info.normalizedTime >= 1)
         {
             btn.SetActive(true);
