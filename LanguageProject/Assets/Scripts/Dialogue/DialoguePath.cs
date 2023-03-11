@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 /// <summary>
-/// The theory I will be testing out here is that you can just use a dictionary to map player responses to alien responses. 
+/// This class uses the DDialogue system from the asset store to deliver most of the game text to the player
 /// </summary>
 public class DialoguePath : MonoBehaviour
 {
@@ -118,6 +118,8 @@ public class DialoguePath : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(transform.gameObject);
+
         characterFriendshipStatus.Add(nameBob, 0);
         characterFriendshipStatus.Add(nameCindy, 0);
         characterFriendshipStatus.Add(nameAlan, 0);
