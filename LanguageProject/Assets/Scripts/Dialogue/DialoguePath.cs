@@ -2,7 +2,7 @@ using Doublsb.Dialog;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// This class uses the DDialogue system from the asset store to deliver most of the game text to the player
@@ -435,7 +435,7 @@ public class DialoguePath : MonoBehaviour
         DialogData endData = new DialogData("The End", "");
         endData.SelectList.Add("end", "Ok");
         //endData.SelectList.Add("end2", "Okk");
-        endData.Callback = () => FileWriter.WriteData(friendshipChangeLog);
+        endData.Callback = () => EndGame();
         dialogDataList.Add(endData);
 
         DialogManager.Show(dialogDataList);
@@ -481,6 +481,13 @@ public class DialoguePath : MonoBehaviour
         DialogManager.letNextTranslate = true;
 
 
+    }
+
+    private void EndGame()
+    {
+        FileWriter.WriteData(friendshipChangeLog);
+
+        SceneManager.LoadScene("Ending");
     }
 
 }
