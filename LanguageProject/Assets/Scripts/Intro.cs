@@ -19,14 +19,19 @@ public class Intro : MonoBehaviour
     void Update()
     {
         info = intro.GetCurrentAnimatorStateInfo(0);
+        Debug.Log(info.normalizedTime);
         if (info.normalizedTime >= 1)
         {
             btn.SetActive(true);
+        }
+        if (btn.active && Input.GetMouseButtonDown(0))
+        {
+            LoadMenu();
         }
     }
 
     public void LoadMenu()
     {
-        SceneManager.LoadScene("DialogueTesting");
+        SceneManager.LoadScene("NewDialogue");
     }
 }
